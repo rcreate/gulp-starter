@@ -10,6 +10,11 @@ var autoprefixer = require('gulp-autoprefixer')
 var path         = require('path')
 var cssnano      = require('gulp-cssnano')
 
+var paths = {
+  src: path.join(config.root.src, config.tasks.css.src, '/**/*.{' + config.tasks.css.extensions + '}'),
+  dest: path.join(config.root.dest, config.tasks.css.dest)
+}
+
 var cssTask = function () {
 
   var paths = {

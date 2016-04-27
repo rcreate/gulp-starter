@@ -17,6 +17,17 @@ module.exports = function(env) {
   var rev = GULP_CONFIG.tasks.production.rev && env === 'production'
   var filenamePattern = rev ? '[name]-[hash].js' : '[name].js'
 
+  var loaders = [];
+
+  if( config.tasks.js.babel ) {
+    loaders.push({
+      test: /\.js$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      query: GULP_CONFIG.tasks.js.babel
+    });
+  }
+
   var webpackConfig = {
     context: jsSrc,
     plugins: [],
@@ -25,14 +36,7 @@ module.exports = function(env) {
       extensions: [''].concat(extensions)
     },
     module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          loader: 'babel-loader',
-          exclude: /node_modules/,
-          query: GULP_CONFIG.tasks.js.babel
-        }
-      ]
+      loaders: loaders
     }
   }
 
