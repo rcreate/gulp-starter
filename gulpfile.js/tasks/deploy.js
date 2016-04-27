@@ -1,4 +1,4 @@
-var config  = require('../config')
+var config  = require('../../../../config')
 var ghPages = require('gulp-gh-pages')
 var gulp    = require('gulp')
 var open    = require('open')

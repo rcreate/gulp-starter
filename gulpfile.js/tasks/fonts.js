@@ -1,4 +1,4 @@
-var config      = require('../config')
+var config      = require('../../../../config')
 if(!config.tasks.fonts) return
 
 var browserSync = require('browser-sync')

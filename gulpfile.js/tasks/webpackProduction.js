@@ -1,4 +1,4 @@
-var config = require('../config')
+var config = require('../../../../config')
 if(!config.tasks.js) return
 
 var config  = require('../lib/webpack-multi-config')('production')

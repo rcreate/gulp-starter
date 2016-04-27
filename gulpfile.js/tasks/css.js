@@ -1,4 +1,4 @@
-var config       = require('../config')
+var config       = require('../../../../config')
 if(!config.tasks.css) return
 
 var gulp         = require('gulp')
