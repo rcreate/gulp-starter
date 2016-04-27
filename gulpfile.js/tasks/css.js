@@ -14,6 +14,11 @@ var cssnano = require('gulp-cssnano')
 var rename = require('gulp-rename')
 var extend = require('extend')
 
+var paths = {
+  src: path.join(config.root.src, config.tasks.css.src, '/**/*.{' + config.tasks.css.extensions + '}'),
+  dest: path.join(config.root.dest, config.tasks.css.dest)
+}
+
 var cssTask = function () {
 
   // decide which plugin should be used (sass or less)

@@ -40,6 +40,17 @@ module.exports = function(env) {
     loaders.push(loaderConfig);
   }
 
+  var loaders = [];
+
+  if( config.tasks.js.babel ) {
+    loaders.push({
+      test: /\.js$/,
+      loader: 'babel-loader',
+      exclude: /node_modules/,
+      query: GULP_CONFIG.tasks.js.babel
+    });
+  }
+
   var webpackConfig = {
     context: jsSrc,
     plugins: [],

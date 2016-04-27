@@ -5,7 +5,7 @@ var assetTasks = ['fonts', 'iconFont', 'images', 'svgSprite']
 var codeTasks = ['html', 'jade', 'pug', 'css', 'js']
 
 module.exports = function() {
-  
+
   function matchFilter(task) {
     if(GULP_CONFIG.tasks[task]) {
       if(task === 'js') {
