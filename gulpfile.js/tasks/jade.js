@@ -1,5 +1,4 @@
-var config = require('../lib/getConfig')()
-if (!config.tasks.jade && !config.tasks.pug) {
+if (!GULP_CONFIG.tasks.jade && !GULP_CONFIG.tasks.pug) {
     return
 }
 
