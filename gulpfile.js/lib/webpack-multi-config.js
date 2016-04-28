@@ -28,11 +28,19 @@ module.exports = function(env) {
     });
   }
 
+  var loaders = [];
+  for (var key in config.loaders) {
+    var loaderConfigPath = path.resolve(config.root.loaders, config.loaders[key])
+    var loaderConfig = require(loaderConfigPath)(webpack);
+
+    loaders.push(loaderConfig);
+  }
+
   var webpackConfig = {
     context: jsSrc,
     plugins: [],
     resolve: {
-      root: jsSrc,
+      root: path.resolve(config.root.src, '../'),
       extensions: [''].concat(extensions)
     },
     module: {
