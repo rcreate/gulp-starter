@@ -1,7 +1,12 @@
 {
   "root": {
     "src": "./src",
-    "dest": "./public"
+    "dest": "./public",
+    "loaders": "./gulpfile.js/loaders"
+  },
+
+  "loaders": {
+    "babel": "babel"
   },
 
   "tasks": {

@@ -19,19 +19,10 @@ module.exports = function(env) {
 
   var loaders = [];
 
-  if( config.tasks.js.babel ) {
-    loaders.push({
-      test: /\.js$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: GULP_CONFIG.tasks.js.babel
-    });
-  }
-
   var loaders = [];
   for (var key in config.loaders) {
     var loaderConfigPath = path.resolve(config.root.loaders, config.loaders[key])
-    var loaderConfig = require(loaderConfigPath)(webpack);
+    var loaderConfig = require(loaderConfigPath)();
 
     loaders.push(loaderConfig);
   }

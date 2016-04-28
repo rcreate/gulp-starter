@@ -1,5 +1,5 @@
 var compress = require('compression')
-var config   = require('../../../../config')
+var config   = require('../lib/getConfig')()
 var express  = require('express')
 var gulp     = require('gulp')
 var gutil    = require('gulp-util')
