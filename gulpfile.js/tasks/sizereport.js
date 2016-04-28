@@ -1,4 +1,4 @@
-var config       = require('../config')
+var config       = require('../lib/getConfig')()
 var gulp         = require('gulp')
 var repeatString = require('../lib/repeatString')
 var sizereport   = require('gulp-sizereport')

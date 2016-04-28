@@ -1,4 +1,4 @@
-var config  = require('../../../../config')
+var config  = require('../lib/getConfig')()
 var changed = require('gulp-changed')
 var gulp    = require('gulp')
 var path    = require('path')

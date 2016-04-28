@@ -4,7 +4,7 @@ var browserSync       = require('browser-sync')
 var gulp              = require('gulp')
 var webpack           = require('webpack')
 var webpackMutiConfig = require('../lib/webpack-multi-config')
-var config            = require('../../../../config')
+var config            = require('../lib/getConfig')()
 var pathToUrl         = require('../lib/pathToUrl')
 
 var browserSyncTask = function() {

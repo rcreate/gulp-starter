@@ -1,28 +1,86 @@
 {
-  "name": "gulp-starter",
-  "version": "3.1.0",
-  "description": "A full featured configurable gulp asset pipeline and static site builder",
-  "engines": {
-    "node": ">=0.12.0 ~5.9.0",
-    "npm": ">=2.14.12 ~3.7.3"
+  "_args": [
+    [
+      "gulp-starter@github:rcreate/gulp-starter#develop",
+      "C:\\Users\\Ricardo Schmidt\\workspace\\webpack"
+    ]
+  ],
+  "_from": "rcreate/gulp-starter#develop",
+  "_id": "gulp-starter@3.1.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/gulp-starter",
+  "_phantomChildren": {
+    "after": "0.8.1",
+    "arraybuffer.slice": "0.0.6",
+    "backo2": "1.0.2",
+    "base64-arraybuffer": "0.1.2",
+    "base64id": "0.1.0",
+    "batch": "0.5.3",
+    "benchmark": "1.0.0",
+    "better-assert": "1.0.2",
+    "blob": "0.0.4",
+    "bluebird": "2.10.2",
+    "body-parser": "1.15.0",
+    "brace-expansion": "1.1.3",
+    "chokidar": "1.4.1",
+    "colors": "1.1.2",
+    "component-bind": "1.0.0",
+    "component-emitter": "1.1.2",
+    "component-inherit": "0.0.3",
+    "connect": "3.4.1",
+    "debug": "2.2.0",
+    "di": "0.0.1",
+    "dom-serialize": "2.2.1",
+    "expand-braces": "0.1.2",
+    "glob": "7.0.3",
+    "graceful-fs": "4.1.3",
+    "http-proxy": "1.13.2",
+    "indexof": "0.0.1",
+    "isbinaryfile": "3.0.0",
+    "json3": "3.2.6",
+    "log4js": "0.6.35",
+    "object-component": "0.0.3",
+    "options": "0.0.6",
+    "parsejson": "0.0.1",
+    "parseqs": "0.0.2",
+    "rimraf": "2.5.2",
+    "source-map": "0.5.5",
+    "ultron": "1.0.2",
+    "useragent": "2.1.9",
+    "utf8": "2.1.0",
+    "wordwrap": "0.0.2",
+    "xmlhttprequest-ssl": "1.5.1",
+    "yeast": "0.1.2"
   },
-  "homepage": "http://code.viget.com/gulp-starter/",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/vigetlabs/gulp-starter.git"
+  "_requested": {
+    "hosted": {
+      "directUrl": "https://raw.githubusercontent.com/rcreate/gulp-starter/develop/package.json",
+      "gitUrl": "git://github.com/rcreate/gulp-starter.git#develop",
+      "httpsUrl": "git+https://github.com/rcreate/gulp-starter.git#develop",
+      "shortcut": "github:rcreate/gulp-starter#develop",
+      "ssh": "git@github.com:rcreate/gulp-starter.git#develop",
+      "sshUrl": "git+ssh://git@github.com/rcreate/gulp-starter.git#develop",
+      "type": "github"
+    },
+    "name": "gulp-starter",
+    "raw": "gulp-starter@github:rcreate/gulp-starter#develop",
+    "rawSpec": "github:rcreate/gulp-starter#develop",
+    "scope": null,
+    "spec": "github:rcreate/gulp-starter#develop",
+    "type": "hosted"
   },
-  "scripts": {
-    "start": "gulp",
-    "gulp": "gulp",
-    "development": "gulp",
-    "production": "gulp production",
-    "deploy": "gulp deploy",
-    "demo": "gulp production && gulp server",
-    "test": "gulp production && karma start --single-run",
-    "test:watch": "karma start",
-    "test:gulp": "mocha ./gulpfile.js/**/*.test.js"
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "git://github.com/rcreate/gulp-starter.git#6cf209ed82df82db66bdf0e6797e9ce95106ffbc",
+  "_shasum": "008c11ddffad2d76ec4e7c3ffa49dbc7a5961356",
+  "_shrinkwrap": null,
+  "_spec": "gulp-starter@github:rcreate/gulp-starter#develop",
+  "_where": "C:\\Users\\Ricardo Schmidt\\workspace\\webpack",
+  "bugs": {
+    "url": "https://github.com/vigetlabs/gulp-starter/issues"
   },
-  "license": "MIT",
   "dependencies": {
     "babel-core": "6.7.2",
     "babel-loader": "6.2.4",
@@ -71,6 +129,7 @@
     "lolex": "1.4.0",
     "mocha": "2.4.5",
     "morgan": "1.7.0",
+    "normalize.css": "^4.0.0",
     "object-assign": "4.0.1",
     "open": "0.0.5",
     "pretty-hrtime": "1.0.2",
@@ -79,17 +138,45 @@
     "sinon-chai": "2.8.0",
     "webpack": "1.12.14",
     "webpack-dev-middleware": "1.5.1",
-    "webpack-hot-middleware": "2.10.0",
-    "normalize.css": "^4.0.0"
+    "webpack-hot-middleware": "2.10.0"
   },
+  "description": "A full featured configurable gulp asset pipeline and static site builder",
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.12.0 ~5.9.0",
+    "npm": ">=2.14.12 ~3.7.3"
+  },
+  "gitHead": "5c50d5d363e8a3c7d63a203cdc2d5c3c454bfe35",
+  "homepage": "http://code.viget.com/gulp-starter/",
+  "license": "MIT",
+  "name": "gulp-starter",
+  "optionalDependencies": {},
   "readme": "# ![Gulp Starter](extras/demo/src/images/gulp-starter-logo.png)\n\n[![Build Status](https://travis-ci.org/vigetlabs/gulp-starter.svg?branch=static-server)](https://travis-ci.org/vigetlabs/gulp-starter)\n\nGulp Starter is a delicious blend of tasks and build tools poured into [Gulp](http://gulpjs.com/) to form a full-featured modern asset pipeline. It can be used as-is as a static site builder, or can be configured and integrated into your own development environment and site or app structure. The [extras](./extras) folder contains configuration details for Rails and Craft, with more to follow. [Check out the compiled demo](http://vigetlabs.github.io/gulp-starter/) and play with [the source files](extras/demo)!\n\n```bash\ngit clone https://github.com/vigetlabs/gulp-starter.git MyApp\ncd MyApp\nnpm install\nnpm start\n```\n\nFeatures | Tools Used\n------ | -----\n**CSS** | [Sass](http://sass-lang.com/) ([Libsass](http://sass-lang.com/libsass) via [node-sass](https://github.com/sass/node-sass)), [Autoprefixer](https://github.com/postcss/autoprefixer), [CSSNano](https://github.com/ben-eb/cssnano), Source Maps\n**JavaScript** | [Babel](http://babeljs.io/), [Webpack](http://webpack.github.io/)\n**HTML** | [Nunjucks](https://mozilla.github.io/nunjucks/), [gulp-data](https://github.com/colynb/gulp-data), or bring your own\n**Images** | Compression with [imagemin](https://www.npmjs.com/package/gulp-imagemin)\n**Icons** | Auto-generated [SVG Sprites](https://github.com/w0rm/gulp-svgstore) and/or [Icon Fonts](https://www.npmjs.com/package/gulp-iconfont)\n**Fonts** | Folder and `.sass` mixin for including WebFonts\n**Live Updating** | [BrowserSync](http://www.browsersync.io/), [Webpack Dev Middleware](https://github.com/webpack/webpack-dev-middleware), [Webpack Hot Middleware](https://github.com/glenjamin/webpack-hot-middleware)\n**Production Builds** | JS and CSS are [uglified](https://github.com/terinjokes/gulp-uglify) and [minified](http://cssnano.co/), [filename md5 hashing (reving)](https://github.com/sindresorhus/gulp-rev), [file size reporting](https://github.com/jaysalvat/gulp-sizereport), local production [Express](http://expressjs.com/) server for testing builds.\n**JS Testing** | [Karma](http://karma-runner.github.io/0.12/index.html), [Mocha](http://mochajs.org/), [Chai](http://chaijs.com/), and [Sinon](http://sinonjs.org/), Example [Travis CI](https://travis-ci.org/) integration\n**Deployment** | Quickly deploy `public` folder to gh-pages with [`gulp-gh-pages`](https://github.com/shinnn/gulp-gh-pages)\n\n## Usage\nMake sure Node installed. I recommend using [NVM](https://github.com/creationix/nvm) to manage versions. \n\nThis has been tested on Node `0.12.x` - `5.9.0`, and should work on newer versions as well. [File an issue](https://github.com/vigetlabs/gulp-starter/issues) if it doesn't!\n\n#### Install Dependencies\n```bash\nnpm install\n```\n\n#### Run devlopment tasks:\n```\nnpm start\n```\nAliases: `npm run gulp`, `npm run development`\n\nThis is where the magic happens. The perfect front-end workflow. This runs the default gulp task, which starts compiling, watching, and live updating all our files as we change them. BrowserSync will start a server on port 3000, or do whatever you've configured it to do. You'll be able to see live changes in all connected browsers. Don't forget about the additional BrowserSync tools available on port 3001!\n\nWhy run this as an npm script? NPM scripts add ./node_modules/bin to the path when run, using the packages version installed with this project, rather than a globally installed ones. Never `npm install -g` and get into mis-matched version issues again. These scripts are defined in the `scripts` property of `package.json`.\n\n#### Run in tests in watch mode:\n```bash\nnpm run test:watch\n```\n\n#### Run tests once:\n```bash\nnpm run test\n```\n\n#### Build production files:\n```bash\nnpm run production\n```\n\n### Running the Demo\nBy default, the files in `src` are pretty minimal. If you're just exploring and would like to play with the [demo](http://vigetlabs.github.io/gulp-starter/) files, the files available in `extras/demo`. Just replace `src` and `config.json` with the ones in `extras/demo`, or simply check out the `demo` branch.\n\n```\ngit checkout demo\nnpm start\n```\n\n### Starting a fresh project\nIf you plan on using this to start a new project, be sure and clear out the `git` data start a fresh history:\n\n```bash\nrm -rf .git && git init\ngit commit -m \"Initialized with Gulp Starter\"\n```\n\n## Configuration\nDirectory and top level settings are convienently exposed in `gulpfile.js/config.json`. Use this file to update paths to match the directory structure of your project, and to adjust task options.\n\nAll task configuration objects have `src` and `dest` directories specfied. These are relative to `root.src` and `root.dest` respectively. Each configuration also has an extensions array. This is used for file watching, and file deleting/replacing.\n\n**If there is a feature you do not wish to use on your project, simply delete the configuration, and the task will be skipped.**\n\nNot all configuration is exposed here. For advanced task configuration, you can always edit the tasks themselves in `gulpfile.js/tasks`.\n\n### Start compiling, serving, and watching files\n```\nnpm run gulp\n```\n\n(or `npm run development`)\n\nThis runs `gulp` from `./node_modules/bin`, using the version installed with this project, rather than a globally installed instance. All commands in the package.json `scripts` work this way. The `gulp` command runs the `default` task, defined in `gulpfile.js/tasks/default.js`.\n\nAll files will compile in development mode (uncompressed with source maps). [BrowserSync](http://www.browsersync.io/) will serve up files to `localhost:3000` and will stream live changes to the code and assets to all connected browsers. Don't forget about the additional BrowserSync tools available on `localhost:3001`!\n\nTo run any other existing task, simply add the task name after the `gulp` command. Example:\n\n```bash\nnpm run gulp production\n```\n\n## Asset Task Details\nA `README.md` with details about each asset task are available in their respective folders in the `src` directory:\n\n- [JavaScript](src/javascripts)\n- [Stylesheets](src/stylesheets)\n- [HTML](src/html)\n- [Fonts](src/fonts)\n- [Images](src/images)\n- [Icon Font](src/icons#iconfont-task)\n- [SVG Sprite](src/icons#svg-sprite-task)\n- [Static Files (favicons, app icons, etc.)](src/static)\n\n## Additional Task Details\n\n### Build production-ready files\n```\nnpm run production\n```\n\nThis will compile revisioned and compressed files to `./public`. To build production files and preview them localy, run\n\n```\nnpm run demo\n```\n\nThis will start a static server that serves your production files to http://localhost:5000. This is primarily meant as a way to preview your production build locally, not necessarily for use as a live production server.\n\n### Run JavaScript Tests\n```\nnpm run test\n```\nTest files located in `__tests__` folders are picked up and run using\n[Karma](http://karma-runner.github.io/0.12/index.html), [Mocha](http://mochajs.org/), [Chai](http://chaijs.com/), and [Sinon](http://sinonjs.org/). The test script right now first compiles a production build, and then, if successful runs Karma. This is nice when using something like [Travis CI](https://travis-ci.org/vigetlabs/gulp-starter) in that if an error occurs during the build step, Travis alerts me that it failed. To pass, the files have to compile properly AND pass the JS tests.\n\n### Deploy to gh-pages\n```\nnpm run deploy\n```\nThis task compiles production code and then uses [gulp-gh-pages](https://github.com/shinnn/gulp-gh-pages) to push the contents of your `dest.root` to a `gh-pages` (or other specified) branch, viewable at http://[your-username].github.io/[your-repo-name]. Be sure to update the `homepage` property in your `package.json`.\n\nGitHub Pages isn't the most robust of hosting solutions (you'll eventually run into relative path issues), but it's a great place to quickly share in-progress work, and you get it for free.\n\n[Surge.sh](http://surge.sh/) might be a good alternative for production-ready static hosting to check out, and is just as easy to deploy to. Where ever you're deploying to, all you need to do is `npm run gulp production` and transfer the contents of the `public` folder to your server however you see fit.\n\nFor non-static sites (Rails, Craft, etc.), make sure the `production` task runs as part of your deploy process.\n\n## Notable changes from 1.0\n- Full asset pipeline and static html compilation\n- `gulpfile.js` is now a directory\n- update directory structure\n- Replaced Browserify with [Webpack](http://webpack.github.io/docs/webpack-for-browserify-users.html)!\n  - Async CommonJS module requires\n  - Automatically splits out shared dependencies\n- New `html` task w/ Nunjucks templating/compiling\n- Replace CoffeeScript with ES6 ([Babel.js](http://babeljs.io/))\n- New `server` task to test production files locally\n- New `deploy` task to deploy the public directory to gh-pages\n- New `rev` task that revisions filenames and compress css and js\n- Use `gulp-watch` instead of `gulp.watch` (correctly handles new files)\n- New `production` task runs tests, compression + filename revisioning\n- Remove old examples and extraneous dependencies\n- Upgrades dependencies\n- Added example Travis CI integration that runs karma tests and production build\n- Add SVG sprite implementation from @synapticism in #100\n\nOriginal Blog Post: https://www.viget.com/articles/gulp-browserify-starter-faq\n\n***\n\n<a href=\"http://code.viget.com\">\n  <img src=\"http://code.viget.com/github-banner.png\" alt=\"Code At Viget\">\n</a>\n\nVisit [code.viget.com](http://code.viget.com) to see more projects from [Viget.](https://viget.com)\n",
   "readmeFilename": "README.md",
-  "gitHead": "5c50d5d363e8a3c7d63a203cdc2d5c3c454bfe35",
-  "bugs": {
-    "url": "https://github.com/vigetlabs/gulp-starter/issues"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vigetlabs/gulp-starter.git"
   },
-  "_id": "gulp-starter@3.0.0",
-  "_shasum": "b72259f6e9c870350cfe1576edf66168ece94a80",
-  "_from": "..\\gulp-starter",
-  "_resolved": "file:..\\gulp-starter"
+  "scripts": {
+    "demo": "gulp production && gulp server",
+    "deploy": "gulp deploy",
+    "development": "gulp",
+    "gulp": "gulp",
+    "production": "gulp production",
+    "start": "gulp",
+    "test": "gulp production && karma start --single-run",
+    "test:gulp": "mocha ./gulpfile.js/**/*.test.js",
+    "test:watch": "karma start"
+  },
+  "version": "3.1.0",
+  "warnings": [
+    {
+      "code": "ENOTSUP",
+      "pkgid": "gulp-starter@3.1.0",
+      "required": {
+        "node": ">=0.12.0 ~5.9.0",
+        "npm": ">=2.14.12 ~3.7.3"
+      }
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 var gulp       = require('gulp')
-var config     = require('../../../../../config')
+var config     = require('../../lib/getConfig')()
 var revReplace = require('gulp-rev-replace')
 var path       = require('path')
 

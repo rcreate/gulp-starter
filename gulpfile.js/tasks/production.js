@@ -1,4 +1,4 @@
-var config       = require('../../../../config')
+var config       = require('../lib/getConfig')()
 var gulp         = require('gulp')
 var gulpSequence = require('gulp-sequence')
 var getEnabledTasks = require('../lib/getEnabledTasks')

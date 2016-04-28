@@ -1,4 +1,4 @@
-var config       = require('../../../../config')
+var config       = require('../lib/getConfig')()
 if(!config.tasks.html) return
 
 var browserSync  = require('browser-sync')

@@ -1,7 +1,7 @@
-var config = require('../../../../config')
+var config = require('../lib/getConfig')()
 if(!config.tasks.js) return
 
-var config  = require('../lib/webpack-multi-config')('production')
+    config  = require('../lib/webpack-multi-config')('production')
 var gulp    = require('gulp')
 var logger  = require('../lib/compileLogger')
 var webpack = require('webpack')

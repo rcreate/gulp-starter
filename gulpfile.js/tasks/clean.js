@@ -1,6 +1,6 @@
 var gulp   = require('gulp')
 var del    = require('del')
-var config = require('../../../../config')
+var config = require('../lib/getConfig')()
 
 var cleanTask = function (cb) {
   del([config.root.dest], {force:true}).then(function (paths) {

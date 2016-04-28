@@ -1,4 +1,4 @@
-var config  = require('../../../../config')
+var config  = require('./getConfig')()
 var compact = require('lodash/compact')
 
 // Grouped by what can run in parallel

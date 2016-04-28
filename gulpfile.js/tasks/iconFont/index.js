@@ -1,11 +1,11 @@
-var config      = require('../../config')
+var config = require('../../lib/getConfig')()
 if(!config.tasks.iconFont) return
 
 var gulp             = require('gulp')
 var iconfont         = require('gulp-iconfont')
 var generateIconSass = require('./generateIconSass')
 var handleErrors     = require('../../lib/handleErrors')
-var package          = require('../../../package.json')
+var package          = require('../../lib/getPackage')()
 var path             = require('path')
 var url              = require('url')
 

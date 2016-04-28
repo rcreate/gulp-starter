@@ -1,4 +1,4 @@
-var config = require('../../../../config')
+var config  = require('./getConfig')()
 if(!config.tasks.js) return
 
 var path            = require('path')
@@ -17,22 +17,12 @@ module.exports = function(env) {
 
   var rev = config.tasks.production.rev && env === 'production'
   var filenamePattern = rev ? '[name]-[hash].js' : '[name].js'
-
+  
   var loaders = [];
 
-  if( config.tasks.js.babel ) {
-    loaders.push({
-      test: /\.js$/,
-      loader: 'babel-loader',
-      include: jsSrc,
-      query: config.tasks.js.babel
-    });
-  }
-
-  var loaders = [];
   for (var key in config.loaders) {
     var loaderConfigPath = path.resolve(config.root.loaders, config.loaders[key])
-    var loaderConfig = require(loaderConfigPath)(webpack);
+    var loaderConfig = require(loaderConfigPath)();
 
     loaders.push(loaderConfig);
   }
