@@ -17,10 +17,13 @@ var jadeOptions = {
     pretty: true
 };
 
-var exclude = path.normalize('!**/{' + config.tasks.jade.excludeFolders.join(',') + '}/**')
+var exclude = path.join(config.root.src, config.tasks.jade.src, '**/{' + config.tasks.jade.excludeFolders.join(',') + '}/**/*.{' + config.tasks.jade.extensions + '}')
 
 var paths = {
-  src: [path.join(config.root.src, config.tasks.jade.src, '/**/*.jade'), exclude],
+  src: [
+    path.join(config.root.src, config.tasks.jade.src, '/**/*.{' + config.tasks.jade.extensions + '}'),
+    "!"+exclude
+  ],
   dest: path.join(config.root.dest, config.tasks.jade.dest),
 }
 

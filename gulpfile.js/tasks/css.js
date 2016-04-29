@@ -11,12 +11,18 @@ var autoprefixer = require('gulp-autoprefixer')
 var path         = require('path')
 var cssnano      = require('gulp-cssnano')
 
+var exclude = path.join(config.root.src, config.tasks.css.src, '**/{' + config.tasks.css.excludeFolders.join(',') + '}/**/*.{' + config.tasks.css.extensions + '}')
+
 var paths = {
-  src: path.join(config.root.src, config.tasks.css.src, '/**/*.{' + config.tasks.css.extensions + '}'),
+  src: [
+    path.join(config.root.src, config.tasks.css.src, '/**/*.{' + config.tasks.css.extensions + '}'),
+    "!"+exclude
+  ],
   dest: path.join(config.root.dest, config.tasks.css.dest)
 }
 
 var cssTask = function () {
+  console.log(paths.src)
   return gulp.src(paths.src)
     .pipe(gulpif(!global.production, sourcemaps.init()))
     .pipe(sass(config.tasks.css.sass))
