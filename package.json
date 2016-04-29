@@ -53,8 +53,10 @@
     "normalize.css": "^4.0.0",
     "object-assign": "4.0.1",
     "open": "0.0.5",
+    "opn": "^4.0.1",
     "pretty-hrtime": "1.0.2",
     "require-dir": "0.3.0",
+    "sc5-styleguide": "^0.3.46",
     "sinon": "1.17.3",
     "sinon-chai": "2.8.0",
     "webpack": "1.12.14",
@@ -85,6 +87,7 @@
     "gulp": "gulp",
     "production": "gulp production",
     "start": "gulp",
+    "styleguide": "gulp styleguide",
     "test": "gulp production && karma start --single-run",
     "test:gulp": "mocha ./gulpfile.js/**/*.test.js",
     "test:watch": "karma start"
