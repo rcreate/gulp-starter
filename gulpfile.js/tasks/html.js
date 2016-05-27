@@ -17,6 +17,7 @@ var htmlTask = function() {
   var paths = {
     src: [path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.html.src, '**/*.{' + GULP_CONFIG.tasks.html.extensions + '}'), exclude],
     dest: path.resolve(process.env.PWD, GULP_CONFIG.root.dest, GULP_CONFIG.tasks.html.dest),
+    build: path.resolve(process.env.PWD, GULP_CONFIG.root.build, GULP_CONFIG.tasks.html.dest),
   }
 
   var getData = function(file) {
@@ -35,7 +36,8 @@ var htmlTask = function() {
     }))
     .on('error', handleErrors)
     .pipe(gulpif(global.production, htmlmin(GULP_CONFIG.tasks.html.htmlmin)))
-    .pipe(gulp.dest(paths.dest))
+    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
+    .pipe(gulpif(global.production, gulp.dest(paths.build)))
     .on('end', browserSync.reload)
 
 }

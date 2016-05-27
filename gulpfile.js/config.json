@@ -2,6 +2,7 @@
   "root": {
     "src": "./src",
     "dest": "./public",
+    "build": "./build",
     "loaders": "./gulpfile.js/loaders"
   },
 

@@ -18,7 +18,8 @@ var cssTask = function () {
         path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/*.{' + GULP_CONFIG.tasks.css.extensions + '}'),
         "!"+exclude
     ],
-    dest: path.resolve(process.env.PWD, GULP_CONFIG.root.dest, GULP_CONFIG.tasks.css.dest)
+    dest: path.resolve(process.env.PWD, GULP_CONFIG.root.dest, GULP_CONFIG.tasks.css.dest),
+    build: path.resolve(process.env.PWD, GULP_CONFIG.root.build, GULP_CONFIG.tasks.css.dest)
   }
 
   return gulp.src(paths.src)
@@ -28,7 +29,8 @@ var cssTask = function () {
     .pipe(autoprefixer(GULP_CONFIG.tasks.css.autoprefixer))
     .pipe(gulpif(global.production, cssnano({autoprefixer: false})))
     .pipe(gulpif(!global.production, sourcemaps.write()))
-    .pipe(gulp.dest(paths.dest))
+    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
+    .pipe(gulpif(global.production, gulp.dest(paths.build)))
     .pipe(browserSync.stream())
 }
 

@@ -24,7 +24,8 @@ var paths = {
     path.join(config.root.src, config.tasks.jade.src, '/**/*.{' + config.tasks.jade.extensions + '}'),
     "!"+exclude
   ],
-  dest: path.join(config.root.dest, config.tasks.jade.dest),
+    dest: path.join(config.root.dest, config.tasks.jade.dest),
+    build: path.join(config.root.build, config.tasks.jade.dest),
 }
 
 var getData = function(file) {
@@ -34,13 +35,15 @@ var getData = function(file) {
 
 var jadeTask = function() {
 
-  return gulp.src(paths.src)
+
+    return gulp.src(paths.src)
     .pipe(data(getData))
     .on('error', handleErrors)
     .pipe(render(jadeOptions))
     .on('error', handleErrors)
     .pipe(gulpif(process.env.NODE_ENV == 'production', htmlmin(config.tasks.jade.htmlmin)))
-    .pipe(gulp.dest(paths.dest))
+    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
+    .pipe(gulpif(global.production, gulp.dest(paths.build)))
     .pipe(browserSync.stream())
 
 }

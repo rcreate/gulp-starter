@@ -8,6 +8,7 @@ var webpackManifest = require('./webpackManifest')
 module.exports = function(env) {
   var jsSrc = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.js.src)
   var jsDest = path.resolve(process.env.PWD, GULP_CONFIG.root.dest, GULP_CONFIG.tasks.js.dest)
+  var jsBuild = path.resolve(process.env.PWD, GULP_CONFIG.root.build, GULP_CONFIG.tasks.js.dest)
   var publicPath = pathToUrl(GULP_CONFIG.tasks.js.dest, '/')
 
   var extensions = GULP_CONFIG.tasks.js.extensions.map(function(extension) {
@@ -19,7 +20,6 @@ module.exports = function(env) {
 
   var loaders = [];
 
-  var loaders = [];
   for (var key in config.loaders) {
     var loaderConfigPath = path.resolve(config.root.loaders, config.loaders[key])
     var loaderConfig = require(loaderConfigPath)();
@@ -76,6 +76,13 @@ module.exports = function(env) {
     if(rev) {
       webpackConfig.plugins.push(new webpackManifest(publicPath, GULP_CONFIG.root.dest))
     }
+
+    webpackConfig.output= {
+      path: path.normalize(jsBuild),
+      filename: filenamePattern,
+      publicPath: publicPath
+    }
+
     webpackConfig.plugins.push(
       new webpack.DefinePlugin({
         'process.env': {
