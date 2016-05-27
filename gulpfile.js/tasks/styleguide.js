@@ -39,7 +39,7 @@ var sgGenerateTask = function () {
 
 var sgApplyStylesTask = function () {
   return gulp.src(paths.entry)
-    .pipe(sass())
+    .pipe(sass({errLogToConsole: true}))
     .pipe(rename('styleguide.css'))
     .pipe(styleguide.applyStyles())
     .pipe(gulp.dest(paths.dest));
@@ -55,7 +55,7 @@ var styleguideLaunchTask = function(cb) {
 }
 
 var styleguideTask = function(cb) {
-    gulpSequence('styleguide:clean', 'styleguide:generate', 'styleguide:applystyles', 'styleguide:watch', 'styleguide:launch', cb);
+    gulpSequence('styleguide:generate', 'styleguide:applystyles', 'styleguide:watch', 'styleguide:launch', cb);
 }
 
 gulp.task('styleguide:clean', sgCleanTask)

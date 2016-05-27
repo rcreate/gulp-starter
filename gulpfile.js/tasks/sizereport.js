@@ -4,7 +4,12 @@ var repeatString = require('../lib/repeatString')
 var sizereport   = require('gulp-sizereport')
 
 gulp.task('size-report', function() {
-  return gulp.src([config.root.dest + '/**/*', '*!rev-manifest.json'])
+    var dest = config.root.dest;
+    if (global.production) {
+        dest = config.root.build;
+    }
+
+    return gulp.src([dest + '/**/*', '*!rev-manifest.json'])
     .pipe(sizereport({
       gzip: true
     }))

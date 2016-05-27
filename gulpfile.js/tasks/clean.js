@@ -3,7 +3,12 @@ var del    = require('del')
 var config = require('../lib/getConfig')()
 
 var cleanTask = function (cb) {
-  del([config.root.dest], {force:true}).then(function (paths) {
+  var dest = config.root.dest;
+  if (global.production) {
+    dest = config.root.build;
+  }
+
+  del([dest+"/**/*"], {force:true}).then(function (paths) {
     cb()
   })
 }

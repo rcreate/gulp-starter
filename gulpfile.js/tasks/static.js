@@ -3,12 +3,17 @@ var changed = require('gulp-changed')
 var gulp    = require('gulp')
 var path    = require('path')
 
+var dest = config.root.dest;
+if (global.production) {
+  dest = config.root.build;
+}
+
 var paths = {
   src: [
     path.join(config.root.src, config.tasks.static.src, '/**'),
     path.join('!' + config.root.src, config.tasks.static.src, '/README.md')
   ],
-  dest: path.join(config.root.dest, config.tasks.static.dest)
+  dest: path.join(dest, config.tasks.static.dest)
 }
 
 var staticTask = function() {

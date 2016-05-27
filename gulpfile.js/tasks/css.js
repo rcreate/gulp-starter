@@ -18,8 +18,11 @@ var paths = {
     path.join(config.root.src, config.tasks.css.src, '/**/*.{' + config.tasks.css.extensions + '}'),
     "!"+exclude
   ],
-  dest: path.join(config.root.dest, config.tasks.css.dest)
-}
+  dest: path.join(config.root.dest, config.tasks.css.dest),
+  build: path.join(config.root.build, config.tasks.css.dest)
+};
+
+
 
 var cssTask = function () {
   return gulp.src(paths.src)
@@ -29,7 +32,8 @@ var cssTask = function () {
     .pipe(autoprefixer(config.tasks.css.autoprefixer))
     .pipe(gulpif(global.production, cssnano({autoprefixer: false})))
     .pipe(gulpif(!global.production, sourcemaps.write()))
-    .pipe(gulp.dest(paths.dest))
+    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
+    .pipe(gulpif(global.production, gulp.dest(paths.build)))
     .pipe(browserSync.stream())
 }
 

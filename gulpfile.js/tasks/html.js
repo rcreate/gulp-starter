@@ -19,6 +19,7 @@ var paths = {
     "!"+exclude
   ],
   dest: path.join(config.root.dest, config.tasks.html.dest),
+  build: path.join(config.root.build, config.tasks.html.dest),
 }
 
 var getData = function(file) {
@@ -39,7 +40,8 @@ var htmlTask = function() {
     }))
     .on('error', handleErrors)
     .pipe(gulpif(global.production, htmlmin(config.tasks.html.htmlmin)))
-    .pipe(gulp.dest(paths.dest))
+    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
+    .pipe(gulpif(global.production, gulp.dest(paths.build)))
     .pipe(browserSync.stream())
 
 }
