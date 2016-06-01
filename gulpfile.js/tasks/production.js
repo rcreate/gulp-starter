@@ -16,5 +16,13 @@ var productionTask = function(cb) {
   gulpSequence('clean', tasks.assetTasks, tasks.codeTasks, rev, 'size-report', 'static', 'replaceFiles', cb)
 }
 
+var demoTask = function(cb) {
+  global.production = true
+  var tasks = getEnabledTasks('production')
+  gulpSequence('clean', tasks.assetTasks, tasks.codeTasks, config.tasks.production.rev ? 'rev': false, 'size-report', 'static', cb)
+}
+
 gulp.task('production', productionTask)
+gulp.task('demo', demoTask)
+
 module.exports = productionTask

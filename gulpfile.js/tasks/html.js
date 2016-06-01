@@ -21,12 +21,19 @@ var htmlTask = function() {
   }
 
   var getData = function(file) {
-    var dataPath = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.html.src, GULP_CONFIG.tasks.html.dataFile)
+    var env = ( global.production === true ? 'production' : 'development');
+    var dataFile = GULP_CONFIG.tasks.html.dataFile.replace('{environment}', env)
+    var dataPath = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.html.src, dataFile)
     return JSON.parse(fs.readFileSync(dataPath, 'utf8'))
+  }
+
+  var getEnv = function(file) {
+    return { environment: ( global.production === true ? 'production' : 'development') }
   }
 
   return gulp.src(paths.src)
     .pipe(data(getData))
+    .pipe(data(getEnv))
     .on('error', handleErrors)
     .pipe(render({
       path: [path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.html.src)],

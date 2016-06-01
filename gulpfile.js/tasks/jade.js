@@ -29,15 +29,20 @@ var paths = {
 }
 
 var getData = function(file) {
-  var dataPath = path.resolve(config.root.src, config.tasks.jade.src, config.tasks.jade.dataFile)
+  var env = ( global.production === true ? 'production' : 'development');
+  var dataFile = config.tasks.jade.dataFile.replace('{environment}', env)
+  var dataPath = path.resolve(config.root.src, config.tasks.jade.src, dataFile)
   return JSON.parse(fs.readFileSync(dataPath, 'utf8'))
 }
 
+var getEnv = function(file) {
+  return { environment: ( global.production === true ? 'production' : 'development') }
+}
+
 var jadeTask = function() {
-
-
-    return gulp.src(paths.src)
+  return gulp.src(paths.src)
     .pipe(data(getData))
+    .pipe(data(getEnv))
     .on('error', handleErrors)
     .pipe(render(jadeOptions))
     .on('error', handleErrors)
