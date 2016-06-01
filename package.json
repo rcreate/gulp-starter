@@ -83,7 +83,7 @@
     "url": "git://github.com/vigetlabs/gulp-starter.git"
   },
   "scripts": {
-    "demo": "gulp production && gulp server",
+    "demo": "gulp demo && gulp server",
     "deploy": "gulp deploy",
     "development": "gulp",
     "gulp": "gulp",
