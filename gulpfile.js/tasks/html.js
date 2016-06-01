@@ -23,14 +23,21 @@ var paths = {
 }
 
 var getData = function(file) {
-  var dataPath = path.resolve(config.root.src, config.tasks.html.src, config.tasks.html.dataFile)
+  var env = ( global.production === true ? 'production' : 'development');
+  var dataFile = config.tasks.html.dataFile.replace('{environment}', env)
+  var dataPath = path.resolve(config.root.src, config.tasks.html.src, dataFile)
   return JSON.parse(fs.readFileSync(dataPath, 'utf8'))
+}
+
+var getEnv = function(file) {
+  return { environment: ( global.production === true ? 'production' : 'development') }
 }
 
 var htmlTask = function() {
 
   return gulp.src(paths.src)
     .pipe(data(getData))
+    .pipe(data(getEnv))
     .on('error', handleErrors)
     .pipe(render({
       path: [path.join(config.root.src, config.tasks.html.src)],
