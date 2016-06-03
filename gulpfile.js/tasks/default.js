@@ -3,7 +3,8 @@ var gulpSequence    = require('gulp-sequence')
 var getEnabledTasks = require('../lib/getEnabledTasks')
 
 var defaultTask = function(cb) {
-  var tasks = getEnabledTasks('watch')
+  global.environment = 'development'
+  var tasks = getEnabledTasks()
   gulpSequence('clean', tasks.assetTasks, tasks.codeTasks, 'static', 'watch', cb)
 }
 

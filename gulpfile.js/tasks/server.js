@@ -1,5 +1,6 @@
 var compress = require('compression')
 var config   = require('../lib/getConfig')()
+var dest   = require('../lib/dest')
 var express  = require('express')
 var gulp     = require('gulp')
 var gutil    = require('gulp-util')
@@ -8,7 +9,7 @@ var open     = require('open')
 var path     = require('path')
 
 var settings = {
-  root: path.resolve(process.cwd(), config.root.build),
+  root: path.resolve(process.cwd(), dest()),
   port: process.env.PORT || 5000,
   logLevel: process.env.NODE_ENV ? 'combined' : 'dev',
   staticOptions: {

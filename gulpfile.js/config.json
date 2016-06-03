@@ -1,8 +1,9 @@
 {
   "root": {
     "src": "./src",
+    "dev": "./tmp",
     "dest": "./public",
-    "build": "./build",
+    "dist": "./build",
     "loaders": "./gulpfile.js/loaders"
   },
 

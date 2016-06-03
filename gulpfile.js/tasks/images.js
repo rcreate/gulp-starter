@@ -7,25 +7,29 @@ var gulp        = require('gulp')
 var imagemin    = require('gulp-imagemin')
 var path        = require('path')
 var gulpif       = require('gulp-if')
-
+var dest        = require('../lib/dest')
 
 var paths = {
   src: path.join(config.root.src, config.tasks.images.src, '/**/*.{' + config.tasks.images.extensions + '}'),
-  dest: path.join(config.root.dest, config.tasks.images.dest),
-  build: path.join(config.root.build, config.tasks.images.dest)
 }
 
 var imagesTask = function() {
   return gulp.src([paths.src, , '*!README.md'])
     // Ignore unchanged files
-    .pipe(gulpif(!global.production, changed(paths.dest)))
-  
-    .pipe(imagemin()) // Optimize
-    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
-    .pipe(gulpif(global.production, gulp.dest(paths.build)))
+    .pipe(gulpif(global.environment === 'development', changed(dest(config.tasks.images.dest))))
+    .pipe(gulpif(global.environment !== 'development', imagemin())) // Optimize
+    .pipe(gulp.dest(dest(config.tasks.images.dest)))
 
   .pipe(browserSync.stream())
 }
 
+var devTask = function () {
+  global.environment = 'development'
+  imagesTask()
+}
+
 gulp.task('images', imagesTask)
+gulp.task('images:dev', devTask)
+gulp.task('images:prod', imagesTask)
+gulp.task('images:dist', imagesTask)
 module.exports = imagesTask

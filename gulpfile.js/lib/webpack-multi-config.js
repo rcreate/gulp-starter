@@ -5,11 +5,11 @@ var path            = require('path')
 var pathToUrl       = require('./pathToUrl')
 var webpack         = require('webpack')
 var webpackManifest = require('./webpackManifest')
+var dest            = require('./dest')
 
 module.exports = function(env) {
   var jsSrc = path.resolve(config.root.src, config.tasks.js.src)
-  var jsDest = path.resolve(config.root.dest, config.tasks.js.dest)
-  var jsBuild = path.resolve(config.root.build, config.tasks.js.dest)
+  var jsDest = path.resolve(dest(config.tasks.js.dest))
   var publicPath = pathToUrl(config.tasks.js.dest, '/')
 
   var extensions = config.tasks.js.extensions.map(function(extension) {
@@ -73,13 +73,13 @@ module.exports = function(env) {
     }
   }
 
-  if(env === 'production') {
+  if(env === 'production' || env === 'distribution') {
     if(rev) {
-      webpackConfig.plugins.push(new webpackManifest(publicPath, config.root.dest))
+      webpackConfig.plugins.push(new webpackManifest(publicPath, dest()))
     }
 
     webpackConfig.output= {
-      path: path.normalize(jsBuild),
+      path: path.normalize(jsDest),
       filename: filenamePattern,
       publicPath: publicPath
     }

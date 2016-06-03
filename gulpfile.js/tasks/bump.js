@@ -7,14 +7,21 @@ var semver = require('gulp-bump/node_modules/semver');
 
 var pkg = JSON.parse(fs.readFileSync('../../package.json', 'utf8'));
 
-// bump versions on package/composer
-gulp.task('bump', function () {
-    var newVer = semver.inc(pkg.version, 'minor');
-    console.log("bumpig package.json and composer json to version:"+newVer);
+var bumbTask = function (type) {
+    var newVer = semver.inc(pkg.version, type);
+    console.log("bumping package.json and composer json to version:"+newVer);
     return gulp.src(['../../package.json', '../../composer.json'])
-    .pipe(bump({
-        version: newVer,
-        type: "minor"
-    }))
-    .pipe(gulp.dest('../../'));
+        .pipe(bump({
+            version: newVer,
+            type: type
+        }))
+        .pipe(gulp.dest('../../'));
+}
+
+// bump minor or major versions on package/composer
+gulp.task('bump:minor', function(){
+    return bumbTask('minor')
+});
+gulp.task('bump:major', function(){
+    return bumbTask('major')
 });
