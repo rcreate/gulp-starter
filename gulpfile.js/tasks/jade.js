@@ -6,6 +6,7 @@ var data         = require('gulp-data')
 var gulp         = require('gulp')
 var gulpif       = require('gulp-if')
 var handleErrors = require('../lib/handleErrors')
+var dest         = require('../lib/dest')
 var htmlmin      = require('gulp-htmlmin')
 var path         = require('path')
 var jade         = require('jade')
@@ -23,32 +24,24 @@ var paths = {
   src: [
     path.join(config.root.src, config.tasks.jade.src, '/**/*.{' + config.tasks.jade.extensions + '}'),
     "!"+exclude
-  ],
-    dest: path.join(config.root.dest, config.tasks.jade.dest),
-    build: path.join(config.root.build, config.tasks.jade.dest),
+  ]
 }
 
 var getData = function(file) {
-  var env = ( global.production === true ? 'production' : 'development');
-  var dataFile = config.tasks.jade.dataFile.replace('{environment}', env)
+  var dataFile = config.tasks.jade.dataFile.replace('{environment}', global.environment)
   var dataPath = path.resolve(config.root.src, config.tasks.jade.src, dataFile)
   return JSON.parse(fs.readFileSync(dataPath, 'utf8'))
 }
 
-var getEnv = function(file) {
-  return { environment: ( global.production === true ? 'production' : 'development') }
-}
-
 var jadeTask = function() {
+
   return gulp.src(paths.src)
     .pipe(data(getData))
-    .pipe(data(getEnv))
     .on('error', handleErrors)
     .pipe(render(jadeOptions))
     .on('error', handleErrors)
-    .pipe(gulpif(process.env.NODE_ENV == 'production', htmlmin(config.tasks.jade.htmlmin)))
-    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
-    .pipe(gulpif(global.production, gulp.dest(paths.build)))
+    .pipe(gulpif(global.environment !== 'development', htmlmin(config.tasks.jade.htmlmin)))
+    .pipe(gulp.dest(dest(config.tasks.jade.dest)))
     .pipe(browserSync.stream())
 
 }

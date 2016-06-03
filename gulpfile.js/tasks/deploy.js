@@ -1,3 +1,4 @@
+var dest    = require('../lib/dest')
 var ghPages = require('gulp-gh-pages')
 var gulp    = require('gulp')
 var open    = require('open')
@@ -8,7 +9,7 @@ var deployTask = function() {
   var package = require(path.resolve(process.env.PWD, 'package.json'))
   var settings = {
     url: package.homepage,
-    src: path.resolve(process.env.PWD, GULP_CONFIG.root.dest, '**/*'),
+    src: dest('/**/*'),
     ghPages: {
       cacheDir: path.join(os.tmpdir(), package.name)
     }

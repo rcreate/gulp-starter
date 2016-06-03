@@ -6,6 +6,7 @@ var browserSync  = require('browser-sync')
 var sass         = require('gulp-sass')
 var sourcemaps   = require('gulp-sourcemaps')
 var handleErrors = require('../lib/handleErrors')
+var dest         = require('../lib/dest')
 var autoprefixer = require('gulp-autoprefixer')
 var path         = require('path')
 var cssnano      = require('gulp-cssnano')
@@ -17,9 +18,7 @@ var cssTask = function () {
     src: [
         path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/*.{' + GULP_CONFIG.tasks.css.extensions + '}'),
         "!"+exclude
-    ],
-    dest: path.resolve(process.env.PWD, GULP_CONFIG.root.dest, GULP_CONFIG.tasks.css.dest),
-    build: path.resolve(process.env.PWD, GULP_CONFIG.root.build, GULP_CONFIG.tasks.css.dest)
+    ]
   }
 
   return gulp.src(paths.src)
@@ -27,10 +26,9 @@ var cssTask = function () {
     .pipe(sass(GULP_CONFIG.tasks.css.sass))
     .on('error', handleErrors)
     .pipe(autoprefixer(GULP_CONFIG.tasks.css.autoprefixer))
-    .pipe(gulpif(global.production, cssnano({autoprefixer: false})))
-    .pipe(gulpif(!global.production, sourcemaps.write()))
-    .pipe(gulpif(!global.production, gulp.dest(paths.dest)))
-    .pipe(gulpif(global.production, gulp.dest(paths.build)))
+    .pipe(gulpif(global.environment !== 'development', cssnano({autoprefixer: false})))
+    .pipe(gulpif(global.environment === 'development', sourcemaps.write()))
+    .pipe(gulp.dest(dest(GULP_CONFIG.tasks.css.dest)))
     .pipe(browserSync.stream())
 }
 

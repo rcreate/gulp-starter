@@ -8,16 +8,16 @@ var path = require('path'),
     sass = require('gulp-sass'),
     styleguide = require('sc5-styleguide'),
     gulpSequence = require('gulp-sequence'),
-    rename = require('gulp-rename');
+    rename = require('gulp-rename'),
+    dest = require('../lib/dest');
 
 var paths = {
   src: path.join(config.root.src, config.tasks.styleguide.src, '/**/*.{' + config.tasks.styleguide.extensions + '}'),
-  entry: path.join(config.root.src, config.tasks.styleguide.src, config.tasks.styleguide.entry),
-  dest: path.join(config.root.dest, config.tasks.styleguide.dest)
+  entry: path.join(config.root.src, config.tasks.styleguide.src, config.tasks.styleguide.entry)
 }
 
 var sgCleanTask = function () {
-    del(paths.dest, {force: true});
+    del(dest(config.tasks.styleguide.dest), {force: true});
 }
 
 var sgGenerateTask = function () {
@@ -26,7 +26,7 @@ var sgGenerateTask = function () {
       title: config.tasks.styleguide.title,
       server: true,
       port: 4000,
-      rootPath: paths.dest,
+      rootPath: dest(config.tasks.styleguide.dest),
       enableJade: (config.tasks.jade?true:false),
       overviewPath: path.join(config.root.src, config.tasks.styleguide.overview),
       styleVariables: path.join(config.root.src, config.tasks.styleguide.src, 'config/_config.sass'),
@@ -34,7 +34,7 @@ var sgGenerateTask = function () {
           sass: 'sass'
       },
     }))
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(dest(config.tasks.styleguide.dest)));
 }
 
 var sgApplyStylesTask = function () {
@@ -42,7 +42,7 @@ var sgApplyStylesTask = function () {
     .pipe(sass({errLogToConsole: true}))
     .pipe(rename('styleguide.css'))
     .pipe(styleguide.applyStyles())
-    .pipe(gulp.dest(paths.dest));
+    .pipe(gulp.dest(dest(config.tasks.styleguide.dest)));
 }
 
 var sgWatchTask = function() {
@@ -55,6 +55,7 @@ var styleguideLaunchTask = function(cb) {
 }
 
 var styleguideTask = function(cb) {
+    global.environment = 'development'
     gulpSequence('styleguide:generate', 'styleguide:applystyles', 'styleguide:watch', 'styleguide:launch', cb);
 }
 

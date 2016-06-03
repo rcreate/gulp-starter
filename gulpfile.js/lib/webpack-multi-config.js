@@ -4,11 +4,11 @@ var path            = require('path')
 var pathToUrl       = require('./pathToUrl')
 var webpack         = require('webpack')
 var webpackManifest = require('./webpackManifest')
+var dest            = require('./dest')
 
 module.exports = function(env) {
   var jsSrc = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.js.src)
-  var jsDest = path.resolve(process.env.PWD, GULP_CONFIG.root.dest, GULP_CONFIG.tasks.js.dest)
-  var jsBuild = path.resolve(process.env.PWD, GULP_CONFIG.root.build, GULP_CONFIG.tasks.js.dest)
+  var jsDest = dest(GULP_CONFIG.tasks.js.dest)
   var publicPath = pathToUrl(GULP_CONFIG.tasks.js.dest, '/')
 
   var extensions = GULP_CONFIG.tasks.js.extensions.map(function(extension) {
@@ -72,13 +72,13 @@ module.exports = function(env) {
     }
   }
 
-  if(env === 'production') {
+  if(env === 'production' || env === 'distribution') {
     if(rev) {
-      webpackConfig.plugins.push(new webpackManifest(publicPath, GULP_CONFIG.root.dest))
+      webpackConfig.plugins.push(new webpackManifest(publicPath, dest()))
     }
 
     webpackConfig.output= {
-      path: path.normalize(jsBuild),
+      path: path.normalize(jsDest),
       filename: filenamePattern,
       publicPath: publicPath
     }

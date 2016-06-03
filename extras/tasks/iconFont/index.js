@@ -1,25 +1,25 @@
-var config = require('../../lib/getConfig')()
-if(!config.tasks.iconFont) return
+if(!GULP_CONFIG.tasks.iconFont) return
 
 var gulp             = require('gulp')
 var iconfont         = require('gulp-iconfont')
 var generateIconSass = require('./generateIconSass')
 var handleErrors     = require('../../lib/handleErrors')
+var dest             = require('../../lib/dest')
 var package          = require('../../lib/getPackage')()
 var path             = require('path')
 var url              = require('url')
 
-var fontPath = path.resolve(process.env.PWD, config.root.dest, config.tasks.iconFont.dest)
-var cssPath = path.resolve(process.env.PWD, config.root.dest, config.tasks.css.dest)
+var fontDest = dest(GULP_CONFIG.tasks.iconFont.dest)
+var cssDest = dest(GULP_CONFIG.tasks.css.dest)
 
 var settings = {
   name: package.name + ' icons',
-  src: path.resolve(process.env.PWD, config.root.src, config.tasks.iconFont.src, '*.svg'),
-  dest: path.resolve(process.env.PWD, config.root.dest, config.tasks.iconFont.dest),
-  sassDest: path.resolve(process.env.PWD, config.root.src, config.tasks.css.src, config.tasks.iconFont.sassDest),
+  src: path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.iconFont.src, '*.svg'),
+  dest: fontDest,
+  sassDest: path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, GULP_CONFIG.tasks.iconFont.sassDest),
   template: path.normalize('./gulpfile.js/tasks/iconFont/template.sass'),
   sassOutputName: '_icons.sass',
-  fontPath: url.resolve('.',path.relative(cssPath, fontPath)),
+  fontPath: url.resolve('.',path.relative(cssDest, fontDest)),
   className: 'icon',
   options: {
     timestamp: 0, // see https://github.com/fontello/svg2ttf/issues/33
