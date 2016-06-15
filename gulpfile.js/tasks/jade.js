@@ -42,7 +42,7 @@ var jadeTask = function() {
     .on('error', handleErrors)
     .pipe(gulpif(global.environment !== 'development', htmlmin(config.tasks.jade.htmlmin)))
     .pipe(gulp.dest(dest(config.tasks.jade.dest)))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream({once: true}))
 
 }
 

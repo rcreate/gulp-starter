@@ -41,7 +41,7 @@ var htmlTask = function() {
     .on('error', handleErrors)
     .pipe(gulpif(global.environment !== 'development', htmlmin(config.tasks.html.htmlmin)))
     .pipe(gulp.dest(dest(config.tasks.html.dest)))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream({once: true}))
 
 }
 
