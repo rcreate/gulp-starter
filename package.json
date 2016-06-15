@@ -85,7 +85,7 @@
   "scripts": {
     "development": "gulp",
     "styleguide": "gulp styleguide",
-    "demo": "gulp production && gulp server",
+    "demo": "gulp production && gulp server:production",
     "production": "gulp production",
     "dist-update": "gulp dist-update && gulp tag:minor",
     "dist-upgrade": "gulp dist-update && gulp tag:major",

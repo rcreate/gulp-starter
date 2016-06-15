@@ -94,6 +94,10 @@ module.exports = function(env) {
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.NoErrorsPlugin()
     )
+
+    if( env === 'production' ) {
+      webpackConfig.devtool = '#source-map'
+    }
   }
 
   return webpackConfig

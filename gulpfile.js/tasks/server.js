@@ -8,17 +8,16 @@ var logger   = require('morgan')
 var open     = require('open')
 var path     = require('path')
 
-var settings = {
-  root: path.resolve(process.cwd(), dest()),
-  port: process.env.PORT || 5000,
-  logLevel: process.env.NODE_ENV ? 'combined' : 'dev',
-  staticOptions: {
-    extensions: ['html'],
-    maxAge: '31556926'
-  }
-}
-
 var serverTask = function() {
+  var settings = {
+    root: path.resolve(process.cwd(), dest()),
+    port: process.env.PORT || 5000,
+    logLevel: process.env.NODE_ENV ? 'combined' : 'dev',
+    staticOptions: {
+      extensions: ['html'],
+      maxAge: '31556926'
+    }
+  }
   var url = 'http://localhost:' + settings.port
 
   express()
@@ -31,5 +30,13 @@ var serverTask = function() {
   open(url)
 }
 
-gulp.task('server', serverTask)
+var runServerTask = function (env) {
+  global.environment = env
+  serverTask()
+}
+
+gulp.task('server', function() { runServerTask('development') })
+gulp.task('server:development', function() { runServerTask('development') })
+gulp.task('server:production', function() { runServerTask('production') })
+gulp.task('server:distribution', function() { runServerTask('distribution') })
 module.exports = serverTask
