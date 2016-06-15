@@ -14,7 +14,7 @@
   "tasks": {
     "browserSync": {
       "server": {
-        "baseDir": "public"
+        "baseDir": "tmp"
       }
     },
 
