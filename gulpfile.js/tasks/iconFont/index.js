@@ -31,7 +31,6 @@ var iconFontTask = function() {
     }
   }
 
-  console.log(settings.dest)
   return gulp.src(settings.src)
     .pipe(iconfont(settings.options))
     .on('glyphs', generateIconSass(settings))
