@@ -46,6 +46,7 @@
     "gulp-if": "2.0.1",
     "gulp-imagemin": "3.0.2",
     "gulp-jade": "^1.1.0",
+    "gulp-less": "^3.1.0",
     "gulp-notify": "2.2.0",
     "gulp-nunjucks-render": "2.0.0",
     "gulp-rename": "1.2.2",

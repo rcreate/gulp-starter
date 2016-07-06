@@ -3,7 +3,6 @@ if(!GULP_CONFIG.tasks.css) return
 var gulp         = require('gulp')
 var gulpif       = require('gulp-if')
 var browserSync  = require('browser-sync')
-var sass         = require('gulp-sass')
 var sourcemaps   = require('gulp-sourcemaps')
 var handleErrors = require('../lib/handleErrors')
 var dest         = require('../lib/dest')
@@ -12,6 +11,13 @@ var path         = require('path')
 var cssnano      = require('gulp-cssnano')
 
 var cssTask = function () {
+
+  // decide which plugin should be used (sass or less)
+  if( typeof GULP_CONFIG.tasks.css.type === "undefined" ){
+      GULP_CONFIG.tasks.css['type'] = 'sass'
+  }
+  var pluginType = GULP_CONFIG.tasks.css.type
+  var plugin = require('gulp-'+pluginType)
 
   var exclude = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/{' + GULP_CONFIG.tasks.css.excludeFolders.join(',') + '}/**/*.{' + GULP_CONFIG.tasks.css.extensions + '}')
   var paths = {
@@ -23,7 +29,7 @@ var cssTask = function () {
 
   return gulp.src(paths.src)
     .pipe(gulpif(!global.production, sourcemaps.init()))
-    .pipe(sass(GULP_CONFIG.tasks.css.sass))
+    .pipe(plugin(GULP_CONFIG.tasks.css[pluginType]))
     .on('error', handleErrors)
     .pipe(autoprefixer(GULP_CONFIG.tasks.css.autoprefixer))
     .pipe(gulpif(global.environment !== 'development', cssnano({autoprefixer: false})))
