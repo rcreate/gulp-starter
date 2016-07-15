@@ -34,7 +34,9 @@
         "presets": ["es2015", "stage-1"],
         "plugins": []
       },
-      "extractSharedJs": false
+      "extractSharedJs": false,
+      "hotModuleReplacement": true,
+      "deployUncompressed": false
     },
     "css": {
       "src": "stylesheets",
