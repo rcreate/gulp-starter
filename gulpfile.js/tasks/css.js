@@ -9,6 +9,7 @@ var dest         = require('../lib/dest')
 var autoprefixer = require('gulp-autoprefixer')
 var path         = require('path')
 var cssnano      = require('gulp-cssnano')
+var rename       = require('gulp-rename')
 
 var cssTask = function () {
 
@@ -18,6 +19,8 @@ var cssTask = function () {
   }
   var pluginType = GULP_CONFIG.tasks.css.type
   var plugin = require('gulp-'+pluginType)
+
+  var deployUncompressed = (global.environment === 'distribution' && GULP_CONFIG.tasks.css.deployUncompressed)
 
   var exclude = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/{' + GULP_CONFIG.tasks.css.excludeFolders.join(',') + '}/**/*.{' + GULP_CONFIG.tasks.css.extensions + '}')
   var paths = {
@@ -32,8 +35,10 @@ var cssTask = function () {
     .pipe(plugin(GULP_CONFIG.tasks.css[pluginType]))
     .on('error', handleErrors)
     .pipe(autoprefixer(GULP_CONFIG.tasks.css.autoprefixer))
+    .pipe(gulpif(deployUncompressed, gulp.dest(dest(GULP_CONFIG.tasks.css.dest))))
     .pipe(gulpif(global.environment !== 'development', cssnano({autoprefixer: false})))
     .pipe(gulpif(global.environment === 'development', sourcemaps.write()))
+    .pipe(rename({extname: '.min.css'}))
     .pipe(gulp.dest(dest(GULP_CONFIG.tasks.css.dest)))
     .pipe(browserSync.stream())
 }
