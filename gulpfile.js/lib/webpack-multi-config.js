@@ -31,6 +31,17 @@ module.exports = function(env) {
       env === 'development'
   )
 
+  // should js replaced hot through webpack-hot-middleware in development?
+  var hotModuleReplacement = (
+      (
+        typeof GULP_CONFIG.tasks.js.hotModuleReplacement === "undefined"
+        ||
+        GULP_CONFIG.tasks.js.hotModuleReplacement === true
+      )
+      &&
+      env === 'development'
+  )
+
   var loaders = [];
 
   for (var key in GULP_CONFIG.loaders) {
@@ -125,6 +136,10 @@ module.exports = function(env) {
     ) {
       webpackConfig.plugins.push(new UnminifiedWebpackPlugin())
     }
+  }
+
+  if( env === 'production' ) {
+    webpackConfig.devtool = '#source-map'
   }
 
   if( env === 'production' ) {
