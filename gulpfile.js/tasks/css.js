@@ -10,6 +10,7 @@ var dest         = require('../lib/dest')
 var autoprefixer = require('gulp-autoprefixer')
 var path         = require('path')
 var cssnano      = require('gulp-cssnano')
+var rename       = require('gulp-rename')
 
 // decide which plugin should be used (sass or less)
 if( typeof config.tasks.css.type === "undefined" ){
@@ -27,15 +28,19 @@ var paths = {
 };
 
 var cssTask = function () {
+  var deployUncompressed = (global.environment === 'distribution' && config.tasks.css.deployUncompressed)
+
   return gulp.src(paths.src)
-    .pipe(gulpif(!global.production, sourcemaps.init()))
-    .pipe(plugin(config.tasks.css[pluginType]))
-    .on('error', handleErrors)
-    .pipe(autoprefixer(config.tasks.css.autoprefixer))
-    .pipe(gulpif(global.environment === 'development', sourcemaps.write()))
-    .pipe(gulpif(global.environment !== 'development', cssnano({autoprefixer: false})))
-    .pipe(gulp.dest(dest(config.tasks.css.dest)))
-    .pipe(browserSync.stream())
+      .pipe(gulpif(!global.production, sourcemaps.init()))
+      .pipe(plugin(config.tasks.css[pluginType]))
+      .on('error', handleErrors)
+      .pipe(autoprefixer(config.tasks.css.autoprefixer))
+      .pipe(gulpif(deployUncompressed, gulp.dest(dest(config.tasks.css.dest))))
+      .pipe(gulpif(global.environment === 'development', sourcemaps.write()))
+      .pipe(gulpif(global.environment !== 'development', cssnano({autoprefixer: false})))
+      .pipe(rename({extname: '.min.css'}))
+      .pipe(gulp.dest(dest(config.tasks.css.dest)))
+      .pipe(browserSync.stream())
 }
 
 gulp.task('css', cssTask)

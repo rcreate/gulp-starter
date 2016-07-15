@@ -12,6 +12,7 @@ gulpfile.js/tasks/webpackProduction
 gulpfile.js/lib/webpack-multi-config
 ```
 
+#### Options
 There are a couple of webpack options exposed in the top-level `gulpfile.js/config.json` file.
 
 ##### `entries`
@@ -22,6 +23,9 @@ Creates a `shared.js` file that contains any modules shared by multiple bundles 
 
 ##### `hotModuleReplacement`
 Enable the hot module replacement plugin to automatically refresh the Javascript in Browser on changes. Default is "true"
+
+##### `deployUncompressed`
+Additionally deploy the raw version of Javascript files
 
 #### Advanced
 If you want to mess with the specifics of the webpack config, check out `gulpfile.js/lib/webpack-multi-config.js`.
