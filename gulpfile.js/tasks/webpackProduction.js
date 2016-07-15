@@ -9,7 +9,9 @@ var webpack       = require('webpack')
 var webpackProductionTask = function(callback) {
   webpack(webpackConfig(global.environment), function(err, stats) {
     logger(err, stats)
-    callback()
+    if(callback) {
+      callback()
+    }
   })
 }
 
