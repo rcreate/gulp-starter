@@ -18,10 +18,21 @@ module.exports = function(env) {
   var rev = GULP_CONFIG.tasks.production.rev && env === 'production'
   var filenamePattern = rev ? '[name]-[hash].js' : '[name].js'
 
+  // should js replaced hot through webpack-hot-middleware in development?
+  var hotModuleReplacement = (
+      (
+        typeof GULP_CONFIG.tasks.js.hotModuleReplacement === "undefined"
+        ||
+        GULP_CONFIG.tasks.js.hotModuleReplacement === true
+      )
+      &&
+      env === 'development'
+  )
+
   var loaders = [];
 
-  for (var key in config.loaders) {
-    var loaderConfigPath = path.resolve(config.root.loaders, config.loaders[key])
+  for (var key in GULP_CONFIG.loaders) {
+    var loaderConfigPath = path.resolve(process.env.PWD, GULP_CONFIG.root.loaders, GULP_CONFIG.loaders[key])
     var loaderConfig = require(loaderConfigPath)();
 
     loaders.push(loaderConfig);
@@ -31,7 +42,7 @@ module.exports = function(env) {
     context: jsSrc,
     plugins: [],
     resolve: {
-      root: path.resolve(config.root.src, '../'),
+      root: path.resolve(process.env.PWD, GULP_CONFIG.root.src, '../'),
       extensions: [''].concat(extensions)
     },
     module: {
@@ -39,9 +50,11 @@ module.exports = function(env) {
     }
   }
 
-  if(env === 'development') {
+  if( env === 'development' ) {
     webpackConfig.devtool = 'inline-source-map'
+  }
 
+  if( hotModuleReplacement === true ) {
     // Create new entries object with webpack-hot-middleware added
     for (var key in GULP_CONFIG.tasks.js.entries) {
       var entry = GULP_CONFIG.tasks.js.entries[key]
@@ -72,31 +85,37 @@ module.exports = function(env) {
     }
   }
 
-  if(env === 'production' || env === 'distribution') {
-    if(rev) {
-      webpackConfig.plugins.push(new webpackManifest(publicPath, dest()))
-    }
+  if(rev && env !== "development") {
+    webpackConfig.plugins.push(new webpackManifest(publicPath, dest()))
+  }
 
-    webpackConfig.output= {
+  if( hotModuleReplacement === false ) {
+    webpackConfig.output = {
       path: path.normalize(jsDest),
       filename: filenamePattern,
       publicPath: publicPath
     }
 
     webpackConfig.plugins.push(
-      new webpack.DefinePlugin({
-        'process.env': {
-          'NODE_ENV': JSON.stringify('production')
-        }
-      }),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.NoErrorsPlugin()
+        new webpack.DefinePlugin({
+          'process.env': {
+            'NODE_ENV': JSON.stringify(env)
+          }
+        })
     )
 
-    if( env === 'production' ) {
-      webpackConfig.devtool = '#source-map'
+    // optimize source in production version
+    if (env !== "development") {
+      webpackConfig.plugins.push(
+          new webpack.optimize.DedupePlugin(),
+          new webpack.optimize.UglifyJsPlugin(),
+          new webpack.NoErrorsPlugin()
+      )
     }
+  }
+
+  if( env === 'production' ) {
+    webpackConfig.devtool = '#source-map'
   }
 
   return webpackConfig
