@@ -18,7 +18,10 @@ var bumbTask = function (type) {
         .pipe(gulp.dest('../../'));
 }
 
-// bump minor or major versions on package/composer
+// bump patch, minor or major versions on package/composer.json
+gulp.task('bump:patch', function(){
+    return bumbTask('patch')
+});
 gulp.task('bump:minor', function(){
     return bumbTask('minor')
 });

@@ -1,11 +1,12 @@
 var config  = require('./getConfig')()
 if(!config.tasks.js) return
 
-var path            = require('path')
-var pathToUrl       = require('./pathToUrl')
-var webpack         = require('webpack')
+var path = require('path')
+var pathToUrl = require('./pathToUrl')
+var webpack = require('webpack')
 var webpackManifest = require('./webpackManifest')
-var dest            = require('./dest')
+var dest = require('./dest')
+var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 module.exports = function(env) {
   var jsSrc = path.resolve(config.root.src, config.tasks.js.src)
@@ -17,9 +18,9 @@ module.exports = function(env) {
   })
 
   var rev = config.tasks.production.rev && env === 'production'
-  var filenamePattern = rev ? '[name]-[hash].js' : '[name].js'
+  var filenamePattern = rev ? '[name]-[hash].min.js' : '[name].min.js'
 
-  // should js replaced hot through webpack-hot-middleware in development?
+  // should js replaced hot through webpack-hot-middleware
   var hotModuleReplacement = (
       (
         typeof config.tasks.js.hotModuleReplacement === "undefined"
@@ -112,6 +113,17 @@ module.exports = function(env) {
           new webpack.optimize.UglifyJsPlugin(),
           new webpack.NoErrorsPlugin()
       )
+    }
+
+    // additionally build raw version of files
+    if (
+        env === "distribution"
+        &&
+        config.tasks.js.deployUncompressed
+        &&
+        config.tasks.js.deployUncompressed === true
+    ) {
+      webpackConfig.plugins.push(new UnminifiedWebpackPlugin())
     }
   }
 

@@ -62,6 +62,7 @@
     "sc5-styleguide": "^0.3.46",
     "sinon": "1.17.3",
     "sinon-chai": "2.8.0",
+    "unminified-webpack-plugin": "^1.1.0",
     "webpack": "1.12.14",
     "webpack-dev-middleware": "1.5.1",
     "webpack-hot-middleware": "2.10.0"
@@ -88,6 +89,7 @@
     "styleguide": "gulp styleguide",
     "demo": "gulp production && gulp server:production",
     "production": "gulp production",
+    "dist-patch": "gulp dist-update && gulp tag:patch",
     "dist-update": "gulp dist-update && gulp tag:minor",
     "dist-upgrade": "gulp dist-update && gulp tag:major",
     "start": "gulp",
