@@ -35,7 +35,7 @@ var htmlTask = function() {
       }
     }))
     .on('error', handleErrors)
-    .pipe(gulpif(global.environment !== 'development', htmlmin(GULP_CONFIG.tasks.html.htmlmin)))
+    .pipe(gulpif(global.environment !== 'development' && GULP_CONFIG.tasks.html.min == true, htmlmin(GULP_CONFIG.tasks.html.htmlmin)))
     .pipe(gulp.dest(dest(GULP_CONFIG.tasks.html.dest)))
     .on('end', browserSync.reload)
 
