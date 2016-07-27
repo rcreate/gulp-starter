@@ -39,7 +39,7 @@ var htmlTask = function() {
       }
     }))
     .on('error', handleErrors)
-    .pipe(gulpif((global.environment !== 'development' && config.tasks.html.min == true), htmlmin(config.tasks.html.htmlmin)))
+    .pipe(gulpif((global.environment !== 'development' && config.tasks.html.htmlmin == true), htmlmin(config.tasks.html.htmlmin)))
     .pipe(gulp.dest(dest(config.tasks.html.dest)))
     .pipe(browserSync.stream({once: true}))
 

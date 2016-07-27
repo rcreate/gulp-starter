@@ -65,6 +65,17 @@
       "excludeFolders": ["layouts", "shared", "macros", "data"]
     },
 
+    "pug": {
+      "src": "pug",
+      "dest": "./",
+      "dataFile": "data/global.json",
+      "htmlmin": {
+        "collapseWhitespace": true
+      },
+      "extensions": ["pug", "jade", "json"],
+      "excludeFolders": ["layouts", "shared", "macros", "data"]
+    },
+
     "images": {
       "src": "images",
       "dest": "images",
