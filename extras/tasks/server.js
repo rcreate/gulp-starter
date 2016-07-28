@@ -27,10 +27,10 @@ var serverTask = function() {
 
   gutil.log('server started on ' + gutil.colors.green(url))
 
-  var browserConfig = ( config.tasks.server.browser && config.tasks.server.browser !== false );
-  if( !config.tasks.server || ( config.tasks.server.browser && config.tasks.server.browser !== false ) ) {
-    if( browserConfig && typeof config.tasks.server.browser === "string" ) {
-      open(url, config.tasks.server.browser)
+  var browserConfig = ( GULP_CONFIG.tasks.server.browser && GULP_CONFIG.tasks.server.browser !== false );
+  if( !GULP_CONFIG.tasks.server || ( GULP_CONFIG.tasks.server.browser && GULP_CONFIG.tasks.server.browser !== false ) ) {
+    if( browserConfig && typeof GULP_CONFIG.tasks.server.browser === "string" ) {
+      open(url, GULP_CONFIG.tasks.server.browser)
     } else {
       open(url)
     }
