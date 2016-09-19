@@ -1,4 +1,6 @@
-var config  = require('../lib/getConfig')()
+var config       = require('../lib/getConfig')()
+if(!config.tasks.static) return
+
 var dest    = require('../lib/dest')
 var changed = require('gulp-changed')
 var gulp    = require('gulp')

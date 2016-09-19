@@ -111,9 +111,5 @@
         "npm": ">=2.14.12 ~3.7.3"
       }
     }
-  ],
-  "_id": "gulp-starter@3.1.0",
-  "_shasum": "dbf98fa0f51b986a358d30dc0905e03f2a85a28c",
-  "_from": "rcreate/gulp-starter#develop",
-  "_resolved": "git://github.com/rcreate/gulp-starter.git#2861042dbbcdd5dc9bd1d53f9968f4c0dc1e2b40"
+  ]
 }

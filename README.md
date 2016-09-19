@@ -82,7 +82,12 @@ All task configuration objects have `src` and `dest` directories specfied. These
 
 **If there is a feature you do not wish to use on your project, simply delete the configuration, and the task will be skipped.**
 
-Not all configuration is exposed here. For advanced task configuration, you can always edit the tasks themselves in `gulpfile.js/tasks`.
+### General Options (see config.json > options)
+
+- `cleanFirst` Tells gulp to clean target directory before task is running. 
+- `reportSizes` Set to true if you want to see a size report when running the "production" or "build" task.
+- `watch` In "development" and "production" task the watcher will be disabled if you set this to "false".
+- `watchProduction` Enables the watcher in "production" task if you set this to "true".
 
 ### Start compiling, serving, and watching files
 ```
@@ -121,6 +126,10 @@ npm run production
 ```
 
 This will compile revisioned and compressed files to `./public`. To build production files and preview them localy, run
+
+#### Configuration
+
+- `rev` If you want to revise your asset files in the resulting html code (append hash) you'll have to specify the source (src) and target (dest) directory where your html files are written to.
 
 ```
 npm run demo

@@ -17,7 +17,7 @@ module.exports = function(env) {
     return '.' + extension
   })
 
-  var rev = config.tasks.production.rev && env === 'production'
+  var rev = (config.tasks.production && config.tasks.production.rev && env === 'production')
   var filenamePattern = rev ? '[name]-[hash].min.js' : '[name].min.js'
 
   // should js replaced hot through webpack-hot-middleware
@@ -27,6 +27,8 @@ module.exports = function(env) {
         ||
         config.tasks.js.hotModuleReplacement === true
       )
+      &&
+      typeof config.tasks.browserSync !== "undefined"
       &&
       env === 'development'
   )
