@@ -8,6 +8,7 @@ var webpackMutiConfig = require('../lib/webpack-multi-config')
 var pathToUrl         = require('../lib/pathToUrl')
 
 var browserSyncTask = function() {
+  if( global.environment !== "development" ) return;
   var webpackConfig = webpackMutiConfig('development')
   var compiler = webpack(webpackConfig)
   var proxyConfig = config.tasks.browserSync.proxy || null;
