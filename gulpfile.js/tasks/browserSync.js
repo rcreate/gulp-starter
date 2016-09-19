@@ -22,13 +22,15 @@ var browserSyncTask = function() {
 
   var server = GULP_CONFIG.tasks.browserSync.proxy || GULP_CONFIG.tasks.browserSync.server;
 
-  server.middleware = [
-    require('webpack-dev-middleware')(compiler, {
-      stats: 'errors-only',
-      publicPath: pathToUrl('/', webpackConfig.output.publicPath)
-    }),
-    require('webpack-hot-middleware')(compiler)
-  ]
+  if( server ) {
+    server.middleware = [
+      require('webpack-dev-middleware')(compiler, {
+        stats: 'errors-only',
+        publicPath: pathToUrl('/', webpackConfig.output.publicPath)
+      }),
+      require('webpack-hot-middleware')(compiler)
+    ]
+  }
 
   browserSync.init(GULP_CONFIG.tasks.browserSync)
 }

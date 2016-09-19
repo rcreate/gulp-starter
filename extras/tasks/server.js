@@ -25,8 +25,16 @@ var serverTask = function() {
     .use('/', express.static(settings.root, settings.staticOptions))
     .listen(settings.port)
 
-  gutil.log('production server started on ' + gutil.colors.green(url))
-  open(url)
+  gutil.log('server started on ' + gutil.colors.green(url))
+
+  var browserConfig = ( config.tasks.server.browser && config.tasks.server.browser !== false );
+  if( !config.tasks.server || ( config.tasks.server.browser && config.tasks.server.browser !== false ) ) {
+    if( browserConfig && typeof config.tasks.server.browser === "string" ) {
+      open(url, config.tasks.server.browser)
+    } else {
+      open(url)
+    }
+  }
 }
 
 var runServerTask = function (env) {

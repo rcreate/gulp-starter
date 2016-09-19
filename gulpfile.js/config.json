@@ -99,6 +99,10 @@
         "src": "./",
         "dest": "./"
       }
+    },
+
+    "server": {
+      "browser": true
     }
   }
 }
