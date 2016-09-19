@@ -1,5 +1,9 @@
-var gulp = require('gulp')
-var jadeTask = require('./pug')
+var config = require('../lib/getConfig')()
+if (!config.tasks.jade && !config.tasks.pug) {
+    return
+}
 
-gulp.task('jade', jadeTask)
-module.exports = jadeTask
+var pug = require('./pug')
+var gulp = require('gulp')
+gulp.task('jade', pug)
+module.exports = pug

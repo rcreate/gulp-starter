@@ -14,7 +14,6 @@
   },
   "scripts": {
     "development": "gulp",
-    "styleguide": "gulp styleguide",
     "production": "gulp production",
     "build": "gulp dist-update",
     "demo": "gulp production && gulp server:production",

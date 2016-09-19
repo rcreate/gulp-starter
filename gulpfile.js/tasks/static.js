@@ -1,3 +1,5 @@
+if(!GULP_CONFIG.tasks.static) return
+
 var dest    = require('../lib/dest')
 var changed = require('gulp-changed')
 var gulp    = require('gulp')

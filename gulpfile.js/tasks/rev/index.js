@@ -1,4 +1,4 @@
-if(!GULP_CONFIG.tasks.production.rev) return
+if(!GULP_CONFIG.tasks.production || !GULP_CONFIG.tasks.production.rev) return
 
 var gulp         = require('gulp')
 var gutil        = require('gulp-util')

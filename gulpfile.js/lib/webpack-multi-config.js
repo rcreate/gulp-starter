@@ -16,7 +16,7 @@ module.exports = function(env) {
     return '.' + extension
   })
 
-  var rev = GULP_CONFIG.tasks.production.rev && env === 'production'
+  var rev = (GULP_CONFIG.tasks.production && GULP_CONFIG.tasks.production.rev && env === 'production')
   var filenamePattern = rev ? '[name]-[hash].min.js' : '[name].min.js'
 
   // should js replaced hot through webpack-hot-middleware
@@ -26,6 +26,8 @@ module.exports = function(env) {
         ||
         GULP_CONFIG.tasks.js.hotModuleReplacement === true
       )
+      &&
+      typeof GULP_CONFIG.tasks.browserSync !== "undefined"
       &&
       env === 'development'
   )

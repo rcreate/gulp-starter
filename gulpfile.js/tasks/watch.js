@@ -20,5 +20,11 @@ var watchTask = function() {
   })
 }
 
-gulp.task('watch', ['browserSync'], watchTask)
+var preTasks = []
+if( typeof config.tasks.browserSync !== "undefined" ) {
+  preTasks.push('browserSync')
+} else {
+  console.info("BrowserSync must be configured in your config.json file to watch changes in your Browser")
+}
+gulp.task('watch', preTasks, watchTask)
 module.exports = watchTask

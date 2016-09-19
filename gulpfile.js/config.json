@@ -95,7 +95,10 @@
     },
 
     "production" : {
-      "rev": true
+      "rev": {
+        "src": "./",
+        "dest": "./"
+      }
     }
   }
 }

@@ -1,15 +1,16 @@
 if(!GULP_CONFIG.tasks.css) return
 
-var gulp         = require('gulp')
-var gulpif       = require('gulp-if')
-var browserSync  = require('browser-sync')
-var sourcemaps   = require('gulp-sourcemaps')
+var gulp = require('gulp')
+var gulpif = require('gulp-if')
+var browserSync = require('browser-sync')
+var sourcemaps = require('gulp-sourcemaps')
 var handleErrors = require('../lib/handleErrors')
-var dest         = require('../lib/dest')
+var dest = require('../lib/dest')
+var globExtension = require('../lib/globExtension')
 var autoprefixer = require('gulp-autoprefixer')
-var path         = require('path')
-var cssnano      = require('gulp-cssnano')
-var rename       = require('gulp-rename')
+var path = require('path')
+var cssnano = require('gulp-cssnano')
+var rename = require('gulp-rename')
 
 var cssTask = function () {
 
@@ -19,13 +20,14 @@ var cssTask = function () {
   }
   var pluginType = GULP_CONFIG.tasks.css.type
   var plugin = require('gulp-'+pluginType)
+  var extensions = globExtension(GULP_CONFIG.tasks.css.extensions)
 
   var deployUncompressed = (global.environment === 'distribution' && GULP_CONFIG.tasks.css.deployUncompressed)
 
-  var exclude = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/{' + GULP_CONFIG.tasks.css.excludeFolders.join(',') + '}/**/*.{' + GULP_CONFIG.tasks.css.extensions + '}')
+  var exclude = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/{' + GULP_CONFIG.tasks.css.excludeFolders.join(',') + '}/**/*.' + extensions)
   var paths = {
     src: [
-        path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/*.{' + GULP_CONFIG.tasks.css.extensions + '}'),
+        path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/*.' + extensions),
         "!"+exclude
     ]
   }

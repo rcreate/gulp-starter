@@ -1,3 +1,6 @@
+var config            = require('../lib/getConfig')()
+if(!config.tasks.browserSync) return
+
 var browserSync       = require('browser-sync')
 var gulp              = require('gulp')
 var webpack           = require('webpack')
