@@ -8,8 +8,6 @@ var webpackMutiConfig = require('../lib/webpack-multi-config')
 var pathToUrl         = require('../lib/pathToUrl')
 
 var browserSyncTask = function() {
-  if(global.environment !== 'development') return
-  
   var webpackConfig = webpackMutiConfig('development')
   var compiler = webpack(webpackConfig)
   var proxyConfig = config.tasks.browserSync.proxy || null;
@@ -22,13 +20,15 @@ var browserSyncTask = function() {
 
   var server = config.tasks.browserSync.proxy || config.tasks.browserSync.server;
 
-  server.middleware = [
-    require('webpack-dev-middleware')(compiler, {
-      stats: 'errors-only',
-      publicPath: pathToUrl('/', webpackConfig.output.publicPath)
-    }),
-    require('webpack-hot-middleware')(compiler)
-  ]
+  if( server ) {
+    server.middleware = [
+      require('webpack-dev-middleware')(compiler, {
+        stats: 'errors-only',
+        publicPath: pathToUrl('/', webpackConfig.output.publicPath)
+      }),
+      require('webpack-hot-middleware')(compiler)
+    ]
+  }
 
   browserSync.init(config.tasks.browserSync)
 }
