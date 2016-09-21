@@ -25,7 +25,7 @@ var defaultTask = function (cb) {
 
     // static file copy
     if (config.tasks.static) {
-        'static'
+        sequence.push('static')
     }
 
     // watching and callback
