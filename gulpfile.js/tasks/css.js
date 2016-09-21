@@ -35,6 +35,7 @@ var cssTask = function () {
   return gulp.src(paths.src)
       .pipe(gulpif(!global.production, sourcemaps.init()))
       .pipe(plugin(config.tasks.css[pluginType]))
+      .on('error', handleErrors)
       .pipe(autoprefixer(config.tasks.css.autoprefixer))
       .pipe(gulpif(deployUncompressed, gulp.dest(dest(config.tasks.css.dest))))
       .pipe(gulpif(global.environment === 'development', sourcemaps.write()))

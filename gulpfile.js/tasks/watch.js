@@ -1,4 +1,5 @@
 var config = require('../lib/getConfig')()
+var globExt = require('../lib/globExtension')
 var gulp   = require('gulp')
 var path   = require('path')
 var watch  = require('gulp-watch')
@@ -13,10 +14,9 @@ var watchTask = function() {
         taskName = global.environment === 'development' ? 'webpackDevelopment' : 'webpackProduction'
       }
 
-      var glob = path.join(config.root.src, task.src, '**/*.{' + task.extensions.join(',') + '}')
+      var glob = path.join(config.root.src, task.src, '**/*.' + globExt(task.extensions))
       watch(glob, function() {
         require('./' + taskName)()
-        console.info("task "+taskName+" completed")
       })
     }
   })
