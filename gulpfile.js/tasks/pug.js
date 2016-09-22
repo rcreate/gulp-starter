@@ -9,10 +9,12 @@ var gulp = require('gulp')
 var gulpif = require('gulp-if')
 var handleErrors = require('../lib/handleErrors')
 var dest = require('../lib/dest')
+var globExt = require('../lib/globExtension')
 var htmlmin = require('gulp-htmlmin')
 var path = require('path')
 var pug = require('pug')
 var fs = require('fs')
+var extend = require('extend')
 
 var pugOptions = {
     pug: pug,
@@ -27,19 +29,33 @@ if (!pugConfig) {
     gulpPug = require('gulp-jade')
 }
 
-var exclude = path.join(config.root.src, pugConfig.src, '**/{' + pugConfig.excludeFolders.join(',') + '}/**/*.{' + pugConfig.extensions + '}')
+var exclude = path.join(config.root.src, pugConfig.src, '**/{' + pugConfig.excludeFolders.join(',') + '}/**/*.' + globExt(pugConfig.extensions))
 
 var paths = {
     src: [
-        path.join(config.root.src, pugConfig.src, '/**/*.{' + pugConfig.extensions + '}'),
+        path.join(config.root.src, pugConfig.src, '/**/*.' + globExt(pugConfig.extensions)),
         "!" + exclude
     ]
 }
 
 var getData = function (file) {
-    var dataFile = pugConfig.dataFile.replace('{environment}', global.environment)
-    var dataPath = path.resolve(config.root.src, pugConfig.src, dataFile)
-    return JSON.parse(fs.readFileSync(dataPath, 'utf8'))
+    var i,
+        data = {},
+        dataFile,
+        dataPath,
+        dataFiles = [ pugConfig.dataFile ]
+
+    if( pugConfig.data ) {
+        dataFiles = pugConfig.data;
+    }
+
+    for( i in dataFiles ) {
+        dataFile = dataFiles[i].replace('{environment}', global.environment);
+        dataPath = path.resolve(config.root.src, pugConfig.src, dataFile);
+        data = extend(data, JSON.parse(fs.readFileSync(dataPath, 'utf8')));
+    }
+
+    return data;
 }
 
 var pugTask = function () {
