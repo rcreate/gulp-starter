@@ -12,7 +12,6 @@ module.exports = function(env) {
   var jsSrc = path.resolve(config.root.src, config.tasks.js.src)
   var jsDest = path.resolve(dest(config.tasks.js.dest))
   var publicPath = pathToUrl(config.tasks.js.dest, '/')
-
   var extensions = config.tasks.js.extensions.map(function(extension) {
     return '.' + extension
   })
@@ -32,7 +31,7 @@ module.exports = function(env) {
       &&
       env === 'development'
   )
-  
+
   var loaders = [];
 
   for (var key in config.loaders) {

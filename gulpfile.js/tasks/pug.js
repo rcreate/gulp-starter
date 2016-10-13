@@ -43,7 +43,12 @@ var getData = function (file) {
         data = {},
         dataFile,
         dataPath,
-        dataFiles = [ pugConfig.dataFile ]
+        dataFiles = [ pugConfig.dataFile ],
+        packageJsonPath = './../../package.json';
+
+    if( !fs.existsSync(packageJsonPath) ) {
+        packageJsonPath = './package.json';
+    }
 
     if( pugConfig.data ) {
         dataFiles = pugConfig.data;
@@ -54,6 +59,10 @@ var getData = function (file) {
         dataPath = path.resolve(config.root.src, pugConfig.src, dataFile);
         data = extend(data, JSON.parse(fs.readFileSync(dataPath, 'utf8')));
     }
+
+    data["packageJson"] = JSON.parse(
+        fs.readFileSync(path.resolve(packageJsonPath), 'utf8')
+    );
 
     return data;
 }
