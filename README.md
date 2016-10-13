@@ -82,6 +82,8 @@ All task configuration objects have `src` and `dest` directories specfied. These
 
 **If there is a feature you do not wish to use on your project, simply delete the configuration, and the task will be skipped.**
 
+Not all configuration is exposed here. For advanced task configuration, you can always edit the tasks themselves in `gulpfile.js/tasks`.
+
 ### General Options (see config.json > options)
 
 - `cleanFirst` Tells gulp to clean target directory before task is running. 
