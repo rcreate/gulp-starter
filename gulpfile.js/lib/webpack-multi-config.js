@@ -11,7 +11,6 @@ module.exports = function(env) {
   var jsSrc = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.js.src)
   var jsDest = dest(GULP_CONFIG.tasks.js.dest)
   var publicPath = pathToUrl(GULP_CONFIG.tasks.js.dest, '/')
-
   var extensions = GULP_CONFIG.tasks.js.extensions.map(function(extension) {
     return '.' + extension
   })
