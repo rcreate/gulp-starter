@@ -55,6 +55,7 @@
     "mocha": "2.4.5",
     "morgan": "1.7.0",
     "normalize.css": "^4.0.0",
+    "npm-sass-require": "github:rcreate/npm-sass-require",
     "object-assign": "4.0.1",
     "open": "0.0.5",
     "opn": "^4.0.1",

@@ -8,10 +8,12 @@ var sourcemaps = require('gulp-sourcemaps')
 var handleErrors = require('../lib/handleErrors')
 var dest = require('../lib/dest')
 var globExtension = require('../lib/globExtension')
+var importer = require('npm-sass-require')
 var autoprefixer = require('gulp-autoprefixer')
 var path = require('path')
 var cssnano = require('gulp-cssnano')
 var rename = require('gulp-rename')
+var extend = require('extend')
 
 // decide which plugin should be used (sass or less)
 if( typeof config.tasks.css.type === "undefined" ){
@@ -20,6 +22,7 @@ if( typeof config.tasks.css.type === "undefined" ){
 var pluginType = config.tasks.css.type
 var plugin = require('gulp-'+pluginType)
 var extensions = globExtension(config.tasks.css.extensions)
+var options = extend(config.tasks.css[pluginType], {importer: importer})
 
 var exclude = path.join(config.root.src, config.tasks.css.src, '**/{' + config.tasks.css.excludeFolders.join(',') + '}/**/*.' + extensions)
 var paths = {
@@ -34,7 +37,7 @@ var cssTask = function () {
 
   return gulp.src(paths.src)
       .pipe(gulpif(!global.production, sourcemaps.init()))
-      .pipe(plugin(config.tasks.css[pluginType]))
+      .pipe(plugin(options))
       .on('error', handleErrors)
       .pipe(autoprefixer(config.tasks.css.autoprefixer))
       .pipe(gulpif(deployUncompressed, gulp.dest(dest(config.tasks.css.dest))))
