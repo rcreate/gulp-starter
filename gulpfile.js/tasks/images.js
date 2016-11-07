@@ -7,25 +7,25 @@ var imagemin    = require('gulp-imagemin')
 var path        = require('path')
 var gulpif       = require('gulp-if')
 var dest        = require('../lib/dest')
+var globExt     = require('../lib/globExtension')
 
 var imagesTask = function() {
 
   var paths = {
-    src: path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.images.src, '**/*.{' + GULP_CONFIG.tasks.images.extensions + '}')
+    src: path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.images.src, '**/*.' + globExt(GULP_CONFIG.tasks.images.extensions))
   }
 
-  return gulp.src([paths.src, , '*!README.md'])
+  return gulp.src([paths.src, '*!README.md'])
     // Ignore unchanged files
     .pipe(gulpif(global.environment === 'development', changed(dest(GULP_CONFIG.tasks.images.dest))))
     .pipe(gulpif(global.environment !== 'development', imagemin())) // Optimize
     .pipe(gulp.dest(dest(GULP_CONFIG.tasks.images.dest)))
-
-  .pipe(browserSync.stream())
+    .pipe(browserSync.stream())
 }
 
 var devTask = function () {
-  global.environment = 'development'
-  imagesTask()
+    global.environment = 'development'
+    imagesTask()
 }
 
 gulp.task('images', imagesTask)
