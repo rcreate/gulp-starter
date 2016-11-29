@@ -33,7 +33,7 @@ var productionTask = function(cb) {
   }
 
   // static file copy
-  if (config.tasks.static) {
+  if (GULP_CONFIG.tasks.static) {
     sequence.push('static')
   }
 

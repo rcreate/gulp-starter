@@ -1,9 +1,8 @@
 var gulp = require('gulp')
 var gulpSequence = require('gulp-sequence')
 var notify = require('gulp-notify')
-var config = require('../lib/getConfig')()
 var getEnabledTasks = require('../lib/getEnabledTasks')
-var option = require('../lib/option')(config)
+var option = require('../lib/option')(GULP_CONFIG)
 
 var defaultTask = function (cb) {
     global.environment = 'development'
@@ -24,7 +23,7 @@ var defaultTask = function (cb) {
     }
 
     // static file copy
-    if (config.tasks.static) {
+    if (GULP_CONFIG.tasks.static) {
         sequence.push('static')
     }
 

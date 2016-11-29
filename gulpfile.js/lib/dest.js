@@ -1,13 +1,12 @@
-var config = require('../lib/getConfig')()
 var pathJs = require("path")
 
 module.exports = function(path) {
-  var dest = config.root.dev;
+  var dest = GULP_CONFIG.root.dev;
   if (global.environment === 'production') {
-    dest = config.root.dest;
+    dest = GULP_CONFIG.root.dest;
   }
   if (global.environment === 'distribution') {
-    dest = config.root.dist;
+    dest = GULP_CONFIG.root.dist;
   }
-  return (path ? pathJs.join(dest, path) : dest )
+  return (path ? pathJs.resolve(process.env.PWD, dest, path) : dest )
 }

@@ -1,5 +1,4 @@
-var config            = require('../lib/getConfig')()
-if(!config.tasks.browserSync) return
+if(!GULP_CONFIG.tasks.browserSync) return
 
 var browserSync       = require('browser-sync')
 var gulp              = require('gulp')

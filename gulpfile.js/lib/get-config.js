@@ -1,4 +1,8 @@
 var path = require('path')
+if( typeof process.env.PWD === "undefined" ) {
+    var asSubmodule = require('fs').existsSync(path.resolve(process.cwd(), '../../node_modules/gulp-starter'))
+    process.env.PWD = (asSubmodule ? path.resolve(process.cwd(), '../../') : process.cwd());
+}
 
 module.exports = function getConfig() {
   // Use provided object

@@ -1,17 +1,22 @@
-var config = require('../lib/getConfig')()
-if(!config.tasks.js) return
+if(!GULP_CONFIG.tasks.js) return
 
-var webpackConfig = require('../lib/webpack-multi-config')
 var gulp          = require('gulp')
 var logger        = require('../lib/compileLogger')
 var webpack       = require('webpack')
 
 var webpackDevelopmentTask = function(callback) {
+
+  var webpackConfig = require('../lib/webpack-multi-config')(global.environment)
+
   // skip saving files to filesystem if it's not wanted
   if(
-      typeof config.tasks.js.hotModuleReplacement === "undefined"
-      ||
-      config.tasks.js.hotModuleReplacement === true
+      (
+          typeof GULP_CONFIG.tasks.js.hotModuleReplacement === "undefined"
+          ||
+          GULP_CONFIG.tasks.js.hotModuleReplacement === true
+      )
+      &&
+      typeof GULP_CONFIG.tasks.browserSync !== "undefined"
   ) {
     if(callback) {
       callback()
@@ -20,7 +25,7 @@ var webpackDevelopmentTask = function(callback) {
     return
   }
 
-  webpack(webpackConfig(global.environment), function(err, stats) {
+  webpack(webpackConfig, function(err, stats) {
     if( stats.compilation.errors.length ) {
       logger(err, stats)
     }

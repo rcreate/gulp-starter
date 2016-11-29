@@ -1,5 +1,4 @@
-var config = require('../lib/getConfig')()
-var option = require('../lib/option')(config)
+var option = require('../lib/option')(GULP_CONFIG)
 var gulp = require('gulp')
 var gulpSequence = require('gulp-sequence')
 var getEnabledTasks = require('../lib/getEnabledTasks')
@@ -23,12 +22,12 @@ var distUpdateTask = function (cb) {
     }
 
     // revisioning enabled?
-    if (config.tasks.production && config.tasks.production.rev) {
+    if (GULP_CONFIG.tasks.production && GULP_CONFIG.tasks.production.rev) {
         sequence.push('rev')
     }
 
     // static file copy
-    if (config.tasks.static) {
+    if (GULP_CONFIG.tasks.static) {
         sequence.push('static')
     }
 
