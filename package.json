@@ -76,7 +76,7 @@
     "lodash": "4.14.0",
     "mocha": "2.5.3",
     "normalize.css": "4.2.0",
-    "npm-sass-require": "github:rcreate/npm-sass-require",
+    "npm-sass-require": "queoGmbH/npm-sass-require",
     "object-assign": "4.1.0",
     "open": "0.0.5",
     "pretty-hrtime": "1.0.2",
