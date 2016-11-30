@@ -82,6 +82,7 @@
     "pretty-hrtime": "1.0.2",
     "pug": "^2.0.0-beta4",
     "require-dir": "0.3.0",
+    "semver": "^5.3.0",
     "sinon": "1.17.5",
     "sinon-chai": "2.8.0",
     "unminified-webpack-plugin": "^1.1.0",

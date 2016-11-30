@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var bump = require('gulp-bump');
 var fs = require('fs');
-var semver = require('gulp-bump/node_modules/semver');
+var semver = require('semver');
 
 var pkg = JSON.parse(fs.readFileSync('../../package.json', 'utf8'));
 
