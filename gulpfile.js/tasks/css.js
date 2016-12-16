@@ -27,11 +27,15 @@ var cssTask = function () {
 
   var deployUncompressed = (global.environment === 'distribution' && GULP_CONFIG.tasks.css.deployUncompressed)
 
-  var exclude = path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/{' + GULP_CONFIG.tasks.css.excludeFolders.join(',') + '}/**/*.' + extensions)
+  var exclude = '';
+  if( GULP_CONFIG.tasks.css.excludeFolders ) {
+      exclude = "!" + path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/{' + GULP_CONFIG.tasks.css.excludeFolders.join(',') + '}/**/*.' + extensions)
+  }
+
   var paths = {
     src: [
         path.resolve(process.env.PWD, GULP_CONFIG.root.src, GULP_CONFIG.tasks.css.src, '**/*.' + extensions),
-        "!"+exclude
+        exclude
     ]
   }
 

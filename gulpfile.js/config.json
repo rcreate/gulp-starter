@@ -11,8 +11,17 @@
     "babel": "babel"
   },
 
+  "options": {
+    "cleanFirst": false,
+    "reportSizes": false,
+    "watch": true,
+    "watchProduction": false
+  },
+
   "tasks": {
     "browserSync": {
+      "browser": "chrome",
+      "open": true,
       "server": {
         "baseDir": "tmp"
       }
@@ -30,10 +39,6 @@
         "app": ["./app.js"]
       },
       "extensions": ["js", "json"],
-      "babel": {
-        "presets": ["es2015", "stage-1"],
-        "plugins": []
-      },
       "extractSharedJs": false,
       "hotModuleReplacement": true,
       "deployUncompressed": false
@@ -44,6 +49,7 @@
       "autoprefixer": {
         "browsers": ["last 3 versions"]
       },
+      "type": "sass",
       "sass": {
         "indentedSyntax": true,
         "includePaths": [
@@ -51,6 +57,7 @@
         ]
       },
       "extensions": ["sass", "scss", "css"],
+      "excludeFolders": ["base", "generated"],
       "deployUncompressed": false
     },
 
@@ -99,10 +106,6 @@
         "src": "./",
         "dest": "./"
       }
-    },
-
-    "server": {
-      "browser": true
     }
   }
 }
