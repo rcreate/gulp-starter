@@ -6,14 +6,14 @@ var os              = require('os')
 var path            = require('path')
 
 var productionTask = function(cb) {
-  global.production = true
+  global.environment = 'production'
 
   // Build to a temporary directory, then move compiled files as a last step
   PATH_CONFIG.finalDest = PATH_CONFIG.dest
   PATH_CONFIG.dest = path.join(os.tmpdir(), 'gulp-starter')
 
   var sequence = []
-  var tasks = getEnabledTasks('production')
+  var tasks = getEnabledTasks()
 
   // clean if neccessary
   if (!option.exists('cleanFirst') || option.get('cleanFirst') === true) {

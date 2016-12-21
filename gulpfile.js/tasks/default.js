@@ -1,10 +1,12 @@
 var gulp            = require('gulp')
 var gulpSequence    = require('gulp-sequence')
 var getEnabledTasks = require('../lib/getEnabledTasks')
-var option = require('../lib/option')(TASK_CONFIG)
+var option          = require('../lib/option')(TASK_CONFIG)
 
 var defaultTask = function (cb) {
-    var tasks = getEnabledTasks('watch')
+    global.environment = 'development'
+
+    var tasks = getEnabledTasks()
     var sequence = []
 
     // clean if neccessary

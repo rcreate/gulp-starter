@@ -8,7 +8,7 @@ module.exports = {
 
   browserSync: {
     server: {
-      baseDir: "public"
+      baseDir: "tmp"
     }
   },
 
