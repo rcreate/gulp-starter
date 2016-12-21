@@ -1,6 +1,7 @@
-var gulp   = require('gulp')
-var path   = require('path')
-var watch  = require('gulp-watch')
+var gulp    = require('gulp')
+var path    = require('path')
+var watch   = require('gulp-watch')
+var globExt = require('../lib/globExtension')
 
 var watchTask = function() {
   var watchableTasks = ['fonts', 'iconFont', 'images', 'svgSprite', 'html', 'jade', 'pug', 'stylesheets', 'javascripts', 'static']
@@ -33,7 +34,7 @@ var watchTask = function() {
         taskName = global.environment === 'development' ? 'webpackDevelopment' : 'webpackProduction'
       }
 
-      var glob = path.resolve(process.env.PWD, PATH_CONFIG.src, taskPath.src, '**/*.{' + taskConfig.extensions.join(',') + '}')
+      var glob = path.resolve(process.env.PWD, PATH_CONFIG.src, taskPath.src, '**/*.' + globExt(taskConfig.extensions))
       watch(glob, function() {
         require('./' + taskName)()
       })
