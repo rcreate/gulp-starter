@@ -2,17 +2,18 @@ if (!TASK_CONFIG.jade && !TASK_CONFIG.pug) {
     return
 }
 
-var browserSync = require('browser-sync')
-var data = require('gulp-data')
-var gulp = require('gulp')
-var gulpif = require('gulp-if')
+var browserSync  = require('browser-sync')
+var data         = require('gulp-data')
+var gulp         = require('gulp')
+var gulpif       = require('gulp-if')
 var handleErrors = require('../lib/handleErrors')
-var globExt = require('../lib/globExtension')
-var htmlmin = require('gulp-htmlmin')
-var path = require('path')
-var pug = require('pug')
-var fs = require('fs')
-var _ = require('lodash')
+var dest         = require('../lib/dest')
+var globExt      = require('../lib/globExtension')
+var htmlmin      = require('gulp-htmlmin')
+var path         = require('path')
+var pug          = require('pug')
+var fs           = require('fs')
+var _            = require('lodash')
 
 var pugOptions = {
     pug: pug,
@@ -34,7 +35,7 @@ var pugTask = function () {
 
     var paths = {
         src: [path.resolve(process.env.PWD, PATH_CONFIG.src, pugPaths.src, '**/*.' + globExt(pugConfig.extensions)), exclude],
-        dest: path.resolve(process.env.PWD, PATH_CONFIG.dest, pugPaths.dest),
+        dest: dest(pugPaths.dest),
     }
 
     var getData = pugConfig.getData || function(file) {
