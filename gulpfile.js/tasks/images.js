@@ -6,11 +6,12 @@ var gulp        = require('gulp')
 var path        = require('path')
 var gulpif      = require('gulp-if')
 var dest        = require('../lib/dest')
+var globExt     = require('../lib/globExtension')
 
 var imagesTask = function() {
 
   var paths = {
-    src: path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.images.src, '**/*.{' + TASK_CONFIG.images.extensions + '}'),
+    src: path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.images.src, '**/*.' + globExt(TASK_CONFIG.images.extensions)),
     dest: dest(PATH_CONFIG.images.dest)
   }
 

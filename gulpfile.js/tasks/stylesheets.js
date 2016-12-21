@@ -6,6 +6,7 @@ var browserSync = require('browser-sync')
 var sourcemaps = require('gulp-sourcemaps')
 var handleErrors = require('../lib/handleErrors')
 var dest         = require('../lib/dest')
+var globExt      = require('../lib/globExtension')
 var autoprefixer = require('gulp-autoprefixer')
 var path         = require('path')
 var cssnano      = require('gulp-cssnano')
@@ -19,7 +20,7 @@ var stylesheetsTask = function () {
   }
   var pluginType = TASK_CONFIG.stylesheets.type
   var plugin = require('gulp-'+pluginType)
-  var extensions = TASK_CONFIG.stylesheets.extensions
+  var extensions = globExt(TASK_CONFIG.stylesheets.extensions)
   var options = TASK_CONFIG.stylesheets[pluginType]
 
   var deployUncompressed = (global.environment === 'distribution' && TASK_CONFIG.stylesheets.deployUncompressed)
@@ -31,7 +32,7 @@ var stylesheetsTask = function () {
 
   var paths = {
     src: [
-        path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.stylesheets.src, '**/*.{' + extensions + '}'),
+        path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.stylesheets.src, '**/*.' + extensions),
         exclude
     ],
     dest: dest(PATH_CONFIG.stylesheets.dest)

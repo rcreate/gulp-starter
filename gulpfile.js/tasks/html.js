@@ -6,6 +6,7 @@ var gulp         = require('gulp')
 var gulpif       = require('gulp-if')
 var handleErrors = require('../lib/handleErrors')
 var dest         = require('../lib/dest')
+var globExt      = require('../lib/globExtension')
 var htmlmin      = require('gulp-htmlmin')
 var path         = require('path')
 var render       = require('gulp-nunjucks-render')
@@ -25,7 +26,7 @@ var htmlTask = function() {
   var exclude = '!' + path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.html.src, '**/{' + TASK_CONFIG.html.excludeFolders.join(',') + '}/**')
 
   var paths = {
-    src: [path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.html.src, '**/*.{' + TASK_CONFIG.html.extensions + '}'), exclude],
+    src: [path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.html.src, '**/*.' + globExt(TASK_CONFIG.html.extensions)), exclude],
     dest: dest(PATH_CONFIG.html.dest),
   }
 
