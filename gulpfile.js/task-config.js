@@ -17,20 +17,25 @@ module.exports = {
       app: ["./app.js"]
     },
     extensions: ["js", "json"],
-    extractSharedJs: false
+    extractSharedJs: false,
+    hotModuleReplacement: true,
+    deployUncompressed: true
   },
 
   stylesheets: {
     autoprefixer: {
       browsers: ["last 3 version"]
     },
+    type: "sass",
     sass: {
       indentedSyntax: true,
       includePaths: [
         "./node_modules/normalize.css"
       ]
     },
-    extensions: ["sass", "scss", "css"]
+    extensions: ["sass", "scss", "css"],
+    excludeFolders: ["base", "generated"],
+    deployUncompressed: true
   },
 
   html: {

@@ -14,3 +14,4 @@ script:
   - yarn run test:gulp
   - yarn run test
   - yarn run build
+  - yarn run distribution
