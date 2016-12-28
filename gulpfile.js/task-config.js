@@ -60,5 +60,11 @@ module.exports = {
 
   production: {
     rev: true
+  },
+  
+  watch: {
+    gulpWatch: {
+      usePolling: false
+    }
   }
 }
