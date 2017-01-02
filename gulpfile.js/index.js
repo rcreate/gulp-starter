@@ -3,7 +3,8 @@ var fs = require('fs')
 
 // Fallback for windows backs out of node_modules folder to root of project
 process.env.PWD = process.env.PWD || function(){
-    var asDependency = (fs.existsSync('../../node_modules/gulp-starter'));
+    var packageJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(),'package.json'), 'utf8'));
+    var asDependency = (fs.existsSync('../../node_modules/'+packageJson.name));
     return path.resolve(process.cwd(), ( asDependency ?'../../':'./'))
 }();
 global.PATH_CONFIG = require('./lib/get-path-config')
