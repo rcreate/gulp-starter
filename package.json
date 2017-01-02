@@ -1,5 +1,5 @@
 {
-  "name": "queo-gulp-starter",
+  "name": "gulp-starter",
   "version": "3.2.0",
   "description": "A full featured configurable gulp asset pipeline and static site builder",
   "license": "MIT",
@@ -76,7 +76,7 @@
     "lodash": "4.14.0",
     "mocha": "2.5.3",
     "normalize.css": "4.2.0",
-    "npm-sass-require": "queoGmbH/npm-sass-require",
+    "npm-sass-require": "0.1.0",
     "object-assign": "4.1.0",
     "open": "0.0.5",
     "pretty-hrtime": "1.0.2",
