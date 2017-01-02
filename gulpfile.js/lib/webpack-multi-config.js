@@ -8,19 +8,19 @@ var dest            = require('./dest')
 var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 module.exports = function(env) {
-  var jsSrc = path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.javascripts.src)
-  var jsDest = dest(PATH_CONFIG.javascripts.dest)
-  var publicPath = pathToUrl(TASK_CONFIG.javascripts.publicPath || PATH_CONFIG.javascripts.dest, '/')
+  let jsSrc = path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.javascripts.src)
+  let jsDest = dest(PATH_CONFIG.javascripts.dest)
+  let publicPath = pathToUrl(TASK_CONFIG.javascripts.publicPath || PATH_CONFIG.javascripts.dest, '/')
 
-  var extensions = TASK_CONFIG.javascripts.extensions.map(function(extension) {
+  let extensions = TASK_CONFIG.javascripts.extensions.map(function(extension) {
     return '.' + extension
   })
 
-  var rev = (TASK_CONFIG.production && TASK_CONFIG.production.rev && env === 'production')
-  var filenamePattern = rev ? '[name]-[hash].min.js' : '[name].min.js'
+  let rev = (TASK_CONFIG.production && TASK_CONFIG.production.rev && env === 'production')
+  let filenamePattern = rev ? '[name]-[hash].min.js' : '[name].min.js'
 
   // should js replaced hot through webpack-hot-middleware
-  var hotModuleReplacement = (
+  let hotModuleReplacement = (
       (
         typeof TASK_CONFIG.javascripts.hotModuleReplacement === "undefined"
         ||
@@ -33,13 +33,13 @@ module.exports = function(env) {
   )
 
   // TODO: To work in < node 6, prepend process.env.PWD + node_modules/babel-preset- to each
-  var defaultBabelConfig = {
+  let defaultBabelConfig = {
     presets: ['es2015', 'stage-1']
   }
 
-  var testPattern = new RegExp(`(\\${TASK_CONFIG.javascripts.extensions.join('$|\\.')}$)`)
+  let testPattern = new RegExp(`(\\${TASK_CONFIG.javascripts.extensions.join('$|\\.')}$)`)
 
-  var webpackConfig = {
+  let webpackConfig = {
     context: jsSrc,
     output: {},
     plugins: [],
@@ -74,8 +74,8 @@ module.exports = function(env) {
 
   if( hotModuleReplacement === true ) {
     // Create new entries object with webpack-hot-middleware added
-    for (var key in TASK_CONFIG.javascripts.entries) {
-      var entry = TASK_CONFIG.javascripts.entries[key]
+    for (let key in TASK_CONFIG.javascripts.entries) {
+      let entry = TASK_CONFIG.javascripts.entries[key]
       // TODO: To work in < node 6, prepend process.env.PWD + node_modules/
       TASK_CONFIG.javascripts.entries[key] = ['webpack-hot-middleware/client?&reload=true'].concat(entry)
     }
@@ -104,14 +104,15 @@ module.exports = function(env) {
   }
 
   if(rev && env !== "development") {
-    var destination = (env === 'distribution' ? PATH_CONFIG.dist : PATH_CONFIG.dest)
+    let destination = (env === 'distribution' ? PATH_CONFIG.dist : PATH_CONFIG.dest)
     webpackConfig.plugins.push(new webpackManifest(PATH_CONFIG.javascripts.dest, destination))
   }
 
+  webpackConfig.output.publicPath = publicPath;
+
   if( hotModuleReplacement === false ) {
-    webpackConfig.output.path = path.normalize(jsDest),
-    webpackConfig.output.filename = filenamePattern,
-    webpackConfig.output.publicPath = publicPath
+    webpackConfig.output.path = path.normalize(jsDest);
+    webpackConfig.output.filename = filenamePattern;
 
     webpackConfig.plugins.push(
         new webpack.DefinePlugin({
@@ -119,7 +120,7 @@ module.exports = function(env) {
             'NODE_ENV': JSON.stringify(env)
           }
         })
-    )
+    );
 
     // optimize source in production version
     if (env !== "development") {
@@ -127,11 +128,11 @@ module.exports = function(env) {
           new webpack.optimize.DedupePlugin(),
           new webpack.optimize.UglifyJsPlugin(),
           new webpack.NoErrorsPlugin()
-      )
+      );
 
-    // Additional loaders for production
-    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.productionLoaders || [])
-  }
+      // Additional loaders for production
+      webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.productionLoaders || [])
+    }
 
     // additionally build raw version of files
     if (
