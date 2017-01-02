@@ -1,11 +1,13 @@
+'use strict';
+
 if(!TASK_CONFIG.javascripts) return
 
-var path            = require('path')
-var pathToUrl       = require('./pathToUrl')
-var webpack         = require('webpack')
-var webpackManifest = require('./webpackManifest')
-var dest            = require('./dest')
-var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+let path            = require('path')
+let pathToUrl       = require('./pathToUrl')
+let webpack         = require('webpack')
+let webpackManifest = require('./webpackManifest')
+let dest            = require('./dest')
+let UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 module.exports = function(env) {
   let jsSrc = path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.javascripts.src)
@@ -108,12 +110,11 @@ module.exports = function(env) {
     webpackConfig.plugins.push(new webpackManifest(PATH_CONFIG.javascripts.dest, destination))
   }
 
+  webpackConfig.output.path = path.normalize(jsDest);
+  webpackConfig.output.filename = filenamePattern;
   webpackConfig.output.publicPath = publicPath;
 
   if( hotModuleReplacement === false ) {
-    webpackConfig.output.path = path.normalize(jsDest);
-    webpackConfig.output.filename = filenamePattern;
-
     webpackConfig.plugins.push(
         new webpack.DefinePlugin({
           'process.env': {
