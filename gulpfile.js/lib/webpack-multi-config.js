@@ -27,7 +27,7 @@ module.exports = function(env) {
         TASK_CONFIG.javascripts.hotModuleReplacement === true
       )
       &&
-      typeof TASK_CONFIG.javascripts.browserSync !== "undefined"
+      typeof TASK_CONFIG.browserSync !== "undefined"
       &&
       env === 'development'
   )
