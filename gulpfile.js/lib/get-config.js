@@ -1,6 +1,8 @@
 var path = require('path')
+var path = require('fs')
 if( typeof process.env.PWD === "undefined" ) {
-    var asSubmodule = require('fs').existsSync(path.resolve(process.cwd(), '../../node_modules/gulp-starter'))
+    var packageJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(),'package.json'), 'utf8'));
+    var asSubmodule = require('fs').existsSync(path.resolve(process.cwd(), '../../node_modules', packageJson.name))
     process.env.PWD = (asSubmodule ? path.resolve(process.cwd(), '../../') : process.cwd());
 }
 
