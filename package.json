@@ -1,6 +1,6 @@
 {
   "name": "queo-blendid",
-  "version": "4.1.5",
+  "version": "4.1.6",
   "description": "(formerly gulp-starter) A full featured configurable gulp asset pipeline and static site builder",
   "license": "MIT",
   "engines": {
