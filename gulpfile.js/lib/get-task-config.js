@@ -22,6 +22,7 @@ function getTaskConfig() {
 
   } catch(e) {
     // Default
+    process.env.PWD = process.cwd();
     return require('../task-config')
   }
 }
