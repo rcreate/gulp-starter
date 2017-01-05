@@ -1,25 +1,26 @@
 var path = require('path')
 if( typeof process.env.PWD === "undefined" ) {
-    process.env.PWD = process.cwd();
+    process.env.PWD = path.resolve(process.cwd(),'../../');
 }
 
 module.exports = function getConfig() {
-  // Use provided object
-  if (process.env.GULP_CONFIG) {
-    return process.env.GULP_CONFIG
-  }
+    // Use provided object
+    if (process.env.GULP_CONFIG) {
+        return process.env.GULP_CONFIG
+    }
 
-  // Load from path
-  if (process.env.GULP_CONFIG_PATH) {
-    return require(path.resolve(process.env.PWD, process.env.GULP_CONFIG_PATH))
-  }
+    // Load from path
+    if (process.env.GULP_CONFIG_PATH) {
+        return require(path.resolve(process.env.PWD, process.env.GULP_CONFIG_PATH))
+    }
 
-  try {
-    // Default Path
-    return require(path.resolve(process.env.PWD, 'build_tools/config.json'))
+    try {
+        // Default Path
+        return require(path.resolve(process.env.PWD, 'build_tools/config.json'))
 
-  } catch(e) {
-    // Default
-    return require('../config')
-  }
+    } catch(e) {
+        // Default
+        process.env.PWD = process.cwd();
+        return require('../config')
+    }
 }
