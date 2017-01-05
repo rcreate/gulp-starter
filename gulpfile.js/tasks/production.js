@@ -9,7 +9,9 @@ var productionTask = function(cb) {
   global.environment = 'production'
 
   GULP_CONFIG.root.finalDest = GULP_CONFIG.root.dest
-  GULP_CONFIG.root.dest = path.join(os.tmpdir(), 'gulp-starter')
+  GULP_CONFIG.root.dest = GULP_CONFIG.root.temp
+      ? path.join(process.env.PWD, GULP_CONFIG.root.temp)
+      : path.join(os.tmpdir(), 'gulp-starter');
 
   var sequence = []
   var tasks = getEnabledTasks()

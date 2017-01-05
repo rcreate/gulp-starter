@@ -1,9 +1,6 @@
 var path = require('path')
-var fs = require('fs')
 if( typeof process.env.PWD === "undefined" ) {
-    var packageJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(),'package.json'), 'utf8'));
-    var asSubmodule = require('fs').existsSync(path.resolve(process.cwd(), '../../node_modules', packageJson.name))
-    process.env.PWD = (asSubmodule ? path.resolve(process.cwd(), '../../') : process.cwd());
+    process.env.PWD = process.cwd();
 }
 
 module.exports = function getConfig() {
