@@ -3,6 +3,7 @@ var gulpSequence    = require('gulp-sequence')
 var option          = require('../lib/option')(TASK_CONFIG)
 var getEnabledTasks = require('../lib/getEnabledTasks')
 var os              = require('os')
+var fs              = require('fs')
 var path            = require('path')
 
 var productionTask = function(cb) {
@@ -13,6 +14,7 @@ var productionTask = function(cb) {
   PATH_CONFIG.dest = PATH_CONFIG.temp
       ? path.join(process.env.PWD, PATH_CONFIG.temp)
       : path.join(os.tmpdir(), 'gulp-starter');
+  fs.mkdirSync(PATH_CONFIG.dest);
 
   var sequence = []
   var tasks = getEnabledTasks()
