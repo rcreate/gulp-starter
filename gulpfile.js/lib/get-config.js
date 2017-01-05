@@ -1,7 +1,5 @@
 var path = require('path')
-if( typeof process.env.PWD === "undefined" ) {
-    process.env.PWD = path.resolve(process.cwd(),'../../');
-}
+process.env.PWD = path.resolve(process.cwd(),'../../');
 
 module.exports = function getConfig() {
     // Use provided object
