@@ -22,6 +22,7 @@ function getPathConfig() {
 
   } catch(e) {
     // Default
+    process.env.PWD = process.cwd();
     return require('../path-config.json')
   }
 }
