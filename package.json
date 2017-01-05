@@ -1,6 +1,6 @@
 {
   "name": "queo-gulp-starter",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "description": "A full featured configurable gulp asset pipeline and static site builder",
   "license": "MIT",
   "engines": {
