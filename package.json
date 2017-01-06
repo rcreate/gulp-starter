@@ -12,6 +12,11 @@
     "type": "git",
     "url": "git://github.com/vigetlabs/gulp-starter.git"
   },
+  "main": "gulpfile.js/index.js",
+  "bin": {
+    "blendid": "bin/blendid.js",
+    "blendid-karma": "bin/blendid-karma.js"
+  },
   "scripts": {
     "development": "gulp",
     "production": "gulp production",
@@ -75,6 +80,7 @@
     "karma-webpack": "1.7.0",
     "lodash": "4.14.0",
     "mocha": "2.5.3",
+    "minimist": "^1.2.0",
     "normalize.css": "4.2.0",
     "npm-sass-require": "0.1.0",
     "object-assign": "4.1.0",
