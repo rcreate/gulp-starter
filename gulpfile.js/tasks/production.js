@@ -14,7 +14,9 @@ var productionTask = function(cb) {
   PATH_CONFIG.dest = PATH_CONFIG.temp
       ? path.join(process.env.PWD, PATH_CONFIG.temp)
       : path.join(os.tmpdir(), 'gulp-starter');
-  fs.mkdirSync(PATH_CONFIG.dest);
+  if( !fs.existsSync(PATH_CONFIG.dest) ) {
+      fs.mkdirSync(PATH_CONFIG.dest);
+  }
 
   var sequence = []
   var tasks = getEnabledTasks()
