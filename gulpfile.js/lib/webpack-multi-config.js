@@ -1,20 +1,23 @@
 'use strict';
 
-if(!TASK_CONFIG.javascripts) return
+if (!TASK_CONFIG.javascripts) {
+  return
+}
 
-let path            = require('path')
-let pathToUrl       = require('./pathToUrl')
-let webpack         = require('webpack')
+let path = require('path')
+let pathToUrl = require('./pathToUrl')
+let webpack = require('webpack')
 let webpackManifest = require('./webpackManifest')
 let dest            = require('./dest')
 let UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+let _object = require('lodash/object');
 
 module.exports = function(env) {
   let jsSrc = path.resolve(process.env.PWD, PATH_CONFIG.src, PATH_CONFIG.javascripts.src)
   let jsDest = dest(PATH_CONFIG.javascripts.dest)
   let publicPath = pathToUrl(TASK_CONFIG.javascripts.publicPath || PATH_CONFIG.javascripts.dest, '/')
 
-  let extensions = TASK_CONFIG.javascripts.extensions.map(function(extension) {
+  let extensions = TASK_CONFIG.javascripts.extensions.map(function (extension) {
     return '.' + extension
   })
 
@@ -35,16 +38,27 @@ module.exports = function(env) {
   )
 
   // TODO: To work in < node 6, prepend process.env.PWD + node_modules/babel-preset- to each
-  let defaultBabelConfig = {
-    presets: ['es2015', 'stage-1']
-  }
+  // Attach default babel loader config to webpack
+  let babelLoader = {
+    test: new RegExp(`(\\${TASK_CONFIG.javascripts.extensions.join('$|\\.')}$)`),
+    loader: 'babel-loader',
+    exclude: /node_modules/,
+    query: TASK_CONFIG.javascripts.babel || {
+      presets: ['es2015', 'stage-1']
+    }
+  };
 
-  let testPattern = new RegExp(`(\\${TASK_CONFIG.javascripts.extensions.join('$|\\.')}$)`)
+  // if custom babel loader config is present extend the given configuration
+  if (TASK_CONFIG.javascripts.babelLoader !== undefined) {
+    babelLoader = _object.assign(babelLoader, TASK_CONFIG.javascripts.babelLoader);
+  }
 
   let webpackConfig = {
     context: jsSrc,
     output: {},
-    plugins: [],
+    plugins: [
+      new webpack.optimize.OccurenceOrderPlugin()
+    ],
     resolve: {
       root: jsSrc,
       extensions: [''].concat(extensions),
@@ -55,21 +69,19 @@ module.exports = function(env) {
       fallback: path.resolve(process.env.PWD, 'node_modules')
     },
     module: {
-      loaders: [
-        {
-          test: testPattern,
-          loader: 'babel-loader',
-          exclude: /node_modules/,
-          query: TASK_CONFIG.javascripts.babel || defaultBabelConfig
-        }
-      ]
+      loaders: [babelLoader]
     }
   }
 
   // Add additional loaders from config
   webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.loaders || [])
 
-  if(env === 'development') {
+  // Provide global objects to imported modules to resolve dependencies (e.g. jquery)
+  if (TASK_CONFIG.javascripts.provide) {
+    webpackConfig.plugins.push(new webpack.ProvidePlugin(TASK_CONFIG.javascripts.provide))
+  }
+
+  if (env === 'development') {
     webpackConfig.devtool = TASK_CONFIG.javascripts.devtool || 'eval-cheap-module-source-map'
     webpackConfig.output.pathinfo = true
   }
@@ -87,7 +99,7 @@ module.exports = function(env) {
     webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.developmentLoaders || [])
   }
 
-  if(env !== 'test') {
+  if (env !== 'test') {
     // Karma doesn't need entry points or output settings
     webpackConfig.entry = TASK_CONFIG.javascripts.entries
 
@@ -148,4 +160,4 @@ module.exports = function(env) {
   }
 
   return webpackConfig
-}
+};
