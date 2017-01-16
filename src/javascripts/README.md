@@ -12,14 +12,32 @@ gulpfile.js/tasks/webpackProduction
 gulpfile.js/lib/webpack-multi-config
 ```
 
-#### Options
-There are a couple of webpack options exposed in the top-level `gulpfile.js/config.json` file.
+There are numerious options exposed in the top-level `gulpfile.js/config.json` file.
+
+#### `hot`
+
+#### Defaults:
+```js
+hot: {
+  enabled: true,
+  reload: true,
+  react: false
+}
+```
+
+By default, the browser will do a full browser refresh if hot-loading isn't set up in your app. If you're using, React, set `react: true` to enable [react-hot-loader](https://github.com/gaearon/react-hot-loader)
 
 ##### `entries`
 Discrete js bundle entry points. A js file will be bundled for each item. Paths are relative to the `javascripts` folder. This maps directly to `webpackConfig.entry`.
 
 ##### `extractSharedJs`
 Creates a `shared.js` file that contains any modules shared by multiple bundles (don't forget to include that on the page!). Useful on large sites with discrete js running on different pages that may share common modules or libraries. For smaller sites, you'll probably want to skip the async stuff, and just compile a single bundle by setting `extractSharedJs` to `false`
+
+##### `babelLoader`
+Object to extend the default config for babel loader. See [Webpack loader documentation](https://webpack.github.io/docs/loaders.html#loaders-by-config) for details. 
+
+##### `provide`
+Key value list of variables that should be provided for modules to resolve dependencies on import using [ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin) 
 
 ##### `hotModuleReplacement`
 Enable the hot module replacement plugin to automatically refresh the Javascript in Browser on changes. Default is "true"
