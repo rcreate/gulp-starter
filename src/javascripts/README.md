@@ -46,20 +46,16 @@ Enable the hot module replacement plugin to automatically refresh the Javascript
 Additionally deploy the raw version of Javascript files
 
 ##### `plugins`
-Define additional plugins as default
+Define additional webpack plugins that should be used in all environments
 
 ##### `loaders`
-Define additional loaders as default
+Define additional webpack loaders that should be used in all environments
 
-##### `development`, `testing`, `production`
-Define additional `plugins` and `loaders` to development, testing or production environment
+##### `development`, `test`, `production`
+Define additional webpack plugins and loaders for development, test or production environment
 ```js
 development: {
-  plugins: function(webpack) {
-    return [
-      new webpack.IgnorePlugin(/jsdom$/)
-    ]
-  },
+  plugins: (webpack) => { return [ new webpack.IgnorePlugin(/jsdom$/) ] },
   loaders: []
 }
 ```
