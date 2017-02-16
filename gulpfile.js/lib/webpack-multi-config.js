@@ -86,12 +86,6 @@ module.exports = function(env) {
   if (env === 'development') {
     webpackConfig.devtool = TASK_CONFIG.javascripts.devtool || 'eval-cheap-module-source-map'
     webpackConfig.output.pathinfo = true
-
-    // Additional plugins and loaders for development
-    if (TASK_CONFIG.javascripts.development) {
-      webpackConfig.plugins = webpackConfig.plugins.concat(TASK_CONFIG.javascripts.development.plugins(webpack) || [])
-      webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.development.loaders || [])
-    }
   }
   if( hotModuleReplacement === true ) {
     // Create new entries object with webpack-hot-middleware added
@@ -124,12 +118,6 @@ module.exports = function(env) {
           filename: filenamePattern,
         })
       )
-    }
-
-    // Additional plugins and loaders for testing
-    if (TASK_CONFIG.javascripts.test) {
-      webpackConfig.plugins = webpackConfig.plugins.concat(TASK_CONFIG.javascripts.test.plugins(webpack) || [])
-      webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.test.loaders || [])
     }
   }
 
@@ -164,12 +152,6 @@ module.exports = function(env) {
        * @deprecated since version 4.1.0, define additional loaders in javascripts.production.loaders
        */
       webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.productionLoaders || [])
-
-      // Additional plugins and loaders for production
-      if (TASK_CONFIG.javascripts.production) {
-        webpackConfig.plugins = webpackConfig.plugins.concat(TASK_CONFIG.javascripts.production.plugins(webpack) || [])
-        webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.production.loaders || [])
-      }
     }
 
     // additionally build raw version of files
@@ -182,6 +164,12 @@ module.exports = function(env) {
     ) {
       webpackConfig.plugins.push(new UnminifiedWebpackPlugin())
     }
+  }
+
+  // Additional plugins and loaders according to environment
+  if (TASK_CONFIG.javascripts[env]) {
+    webpackConfig.plugins = webpackConfig.plugins.concat(TASK_CONFIG.javascripts[env].plugins(webpack) || [])
+    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts[env].loaders || [])
   }
 
   return webpackConfig
