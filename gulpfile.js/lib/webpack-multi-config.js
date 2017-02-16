@@ -73,9 +73,6 @@ module.exports = function(env) {
     }
   }
 
-  // Add additional loaders from config
-  webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.loaders || [])
-
   // Provide global objects to imported modules to resolve dependencies (e.g. jquery)
   if (TASK_CONFIG.javascripts.provide) {
     webpackConfig.plugins.push(new webpack.ProvidePlugin(TASK_CONFIG.javascripts.provide))
@@ -85,7 +82,6 @@ module.exports = function(env) {
     webpackConfig.devtool = TASK_CONFIG.javascripts.devtool || 'eval-cheap-module-source-map'
     webpackConfig.output.pathinfo = true
   }
-
   if( hotModuleReplacement === true ) {
     // Create new entries object with webpack-hot-middleware added
     for (let key in TASK_CONFIG.javascripts.entries) {
@@ -95,8 +91,6 @@ module.exports = function(env) {
     }
 
     webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
-    // Additional loaders for dev
-    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.developmentLoaders || [])
   }
 
   if (env !== 'test') {
@@ -112,9 +106,6 @@ module.exports = function(env) {
         })
       )
     }
-
-    // Additional loaders for tests
-    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.testLoaders || [])
   }
 
   if(rev && env !== "development") {
@@ -142,9 +133,6 @@ module.exports = function(env) {
           new webpack.optimize.UglifyJsPlugin(),
           new webpack.NoErrorsPlugin()
       );
-
-      // Additional loaders for production
-      webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.productionLoaders || [])
     }
 
     // additionally build raw version of files
@@ -157,6 +145,29 @@ module.exports = function(env) {
     ) {
       webpackConfig.plugins.push(new UnminifiedWebpackPlugin())
     }
+  }
+
+  // Add defined plugins and loaders for all environments
+  if( TASK_CONFIG.javascripts.plugins ) {
+    webpackConfig.plugins = webpackConfig.plugins.concat(TASK_CONFIG.javascripts.plugins(webpack) || [])
+  }
+  webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.loaders || [])
+
+  /**
+   * Additional loaders for development and production
+   *
+   * @deprecated since version 4.1.0, define additional loaders in javascripts.development.loaders
+   */
+  if (TASK_CONFIG.javascripts[env+'Loaders']) {
+    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts[env+'Loaders'] || [])
+  }
+
+  // Additional plugins and loaders according to environment
+  if (TASK_CONFIG.javascripts[env]) {
+    if( TASK_CONFIG.javascripts[env].plugins ) {
+      webpackConfig.plugins = webpackConfig.plugins.concat(TASK_CONFIG.javascripts[env].plugins(webpack) || [])
+    }
+    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts[env].loaders || [])
   }
 
   return webpackConfig

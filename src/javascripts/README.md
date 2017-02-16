@@ -45,5 +45,20 @@ Enable the hot module replacement plugin to automatically refresh the Javascript
 ##### `deployUncompressed`
 Additionally deploy the raw version of Javascript files
 
+##### `plugins`
+Define additional webpack plugins that should be used in all environments
+
+##### `loaders`
+Define additional webpack loaders that should be used in all environments
+
+##### `development`, `test`, `production`
+Define additional webpack plugins and loaders for development, test or production environment
+```js
+development: {
+  plugins: (webpack) => { return [ new webpack.IgnorePlugin(/jsdom$/) ] },
+  loaders: []
+}
+```
+
 #### Advanced
 If you want to mess with the specifics of the webpack config, check out `gulpfile.js/lib/webpack-multi-config.js`.
