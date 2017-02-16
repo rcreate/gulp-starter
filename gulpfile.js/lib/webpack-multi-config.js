@@ -73,11 +73,6 @@ module.exports = function(env) {
     }
   }
 
-  /**
-   * @deprecated since version 4.1.0, define additional loaders for development, test and production in task-config.js
-   */
-  webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.loaders || [])
-
   // Provide global objects to imported modules to resolve dependencies (e.g. jquery)
   if (TASK_CONFIG.javascripts.provide) {
     webpackConfig.plugins.push(new webpack.ProvidePlugin(TASK_CONFIG.javascripts.provide))
@@ -95,15 +90,7 @@ module.exports = function(env) {
       TASK_CONFIG.javascripts.entries[key] = ['webpack-hot-middleware/client?&reload=true'].concat(entry)
     }
 
-    /**Additional loaders for dev
-     * @deprecated since version 4.1.0, define additional plugins for development, test and production in task-config.js
-     */
     webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
-    //Additional loaders for dev
-    /**
-     * @deprecated since version 4.1.0, define additional loaders in javascripts.development.loaders
-     */
-    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.developmentLoaders || [])
   }
 
   if (env !== 'test') {
@@ -146,12 +133,6 @@ module.exports = function(env) {
           new webpack.optimize.UglifyJsPlugin(),
           new webpack.NoErrorsPlugin()
       );
-
-      // Additional loaders for production
-      /**
-       * @deprecated since version 4.1.0, define additional loaders in javascripts.production.loaders
-       */
-      webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.productionLoaders || [])
     }
 
     // additionally build raw version of files
@@ -164,6 +145,18 @@ module.exports = function(env) {
     ) {
       webpackConfig.plugins.push(new UnminifiedWebpackPlugin())
     }
+  }
+
+  //Add defined plugins and loaders for all environments
+  webpackConfig.plugins = webpackConfig.plugins.concat(TASK_CONFIG.javascripts.plugins(webpack) || [])
+  webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts.loaders || [])
+
+  if (TASK_CONFIG.javascripts[env+'Loaders']) {
+    //Additional loaders for development and production
+    /**
+     * @deprecated since version 4.1.0, define additional loaders in javascripts.development.loaders
+     */
+    webpackConfig.module.loaders = webpackConfig.module.loaders.concat(TASK_CONFIG.javascripts[env+'Loaders'] || [])
   }
 
   // Additional plugins and loaders according to environment
