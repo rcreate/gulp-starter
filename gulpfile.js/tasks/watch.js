@@ -25,16 +25,30 @@ var watchTask = function() {
     }
   }
 
+    var getGlob = function (taskPath, taskConfig) {
+      var paths = [
+          path.resolve(process.env.PWD, PATH_CONFIG.src, taskPath.src, '**/*.' + globExt(taskConfig.extensions))
+      ];
+
+      if( taskPath.watch ) {
+          taskPath.watch.forEach((p)=>{
+              paths.push(path.resolve(process.env.PWD, PATH_CONFIG.src, p, '**/*.' + globExt(taskConfig.extensions)));
+          });
+      }
+
+      return paths;
+  }
+
   watchableTasks.forEach(function(taskName) {
-    var taskConfig = TASK_CONFIG[taskName]
-    var taskPath = getTaskPathFor(taskName)
+    var taskConfig = TASK_CONFIG[taskName];
+    var taskPath = getTaskPathFor(taskName);
 
     if(taskConfig) {
       if(taskName === 'javascripts') {
         taskName = global.environment === 'development' ? 'webpackDevelopment' : 'webpackProduction'
       }
 
-      var glob = path.resolve(process.env.PWD, PATH_CONFIG.src, taskPath.src, '**/*.' + globExt(taskConfig.extensions))
+      var glob = getGlob(taskPath, taskConfig);
       watch(glob, function() {
         require('./' + taskName)()
       })
