@@ -1,6 +1,6 @@
 {
   "name": "queo-blendid",
-  "version": "4.1.17",
+  "version": "4.1.18",
   "description": "(formerly gulp-starter) A full featured configurable gulp asset pipeline and static site builder",
   "license": "MIT",
   "engines": {
@@ -36,7 +36,7 @@
     "babel-loader": "6.2.8",
     "babel-preset-es2015": "6.18.0",
     "babel-preset-stage-1": "6.16.0",
-    "browser-sync": "2.18.2",
+    "browser-sync": "^2.26.7",
     "chai": "3.5.0",
     "del": "2.2.2",
     "gulp": "3.9.1",
